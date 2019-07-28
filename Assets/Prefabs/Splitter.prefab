@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23129571240963076}
   - component: {fileID: 65610763825437302}
   - component: {fileID: 114670419413678042}
+  - component: {fileID: 114415572103960404}
   m_Layer: 11
   m_Name: Splitter
   m_TagString: Untagged
@@ -422,6 +423,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114415572103960404
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1329514189143192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734c41de4a8b5fb458c4dbb379a3f8ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114670419413678042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -437,6 +449,8 @@ MonoBehaviour:
   onlyItems:
     serializedVersion: 2
     m_Bits: 512
+  inupt1: {fileID: 1428097967748966}
+  inupt2: {fileID: 1768265348869430}
 --- !u!136 &136073367510676280
 CapsuleCollider:
   m_ObjectHideFlags: 1
