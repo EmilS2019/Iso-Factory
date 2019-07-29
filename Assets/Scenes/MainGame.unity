@@ -505,15 +505,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpotLight: {fileID: 768434855}
-  MineBuilding: {fileID: 1866105287597620, guid: 1f1efaf201aff7b4fa4d6336d3d4c589,
-    type: 2}
+  outputText: {fileID: 1678308120}
+  inputText: {fileID: 0}
   BuildingTypeText: {fileID: 2132694708}
   StackText: {fileID: 449416452}
+  StackText2: {fileID: 1693729437}
   onlyGroundAndBuildings:
     serializedVersion: 2
     m_Bits: 3072
-  ConveyorBelt: {fileID: 1899928987687664, guid: edffb9f51873a214ea80f6c85e7561b9,
-    type: 2}
+  SelectedObject: {fileID: 0}
 --- !u!114 &353649106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -596,7 +596,7 @@ GameObject:
   - component: {fileID: 449416453}
   - component: {fileID: 449416452}
   m_Layer: 5
-  m_Name: Stack Text
+  m_Name: Stack Text 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1576,7 +1576,7 @@ GameObject:
   - component: {fileID: 1693729438}
   - component: {fileID: 1693729437}
   m_Layer: 5
-  m_Name: Stack Text (1)
+  m_Name: Stack Text 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

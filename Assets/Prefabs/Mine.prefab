@@ -37,8 +37,8 @@ GameObject:
   - component: {fileID: 33370319998778088}
   - component: {fileID: 23033586246326148}
   - component: {fileID: 65180562511392528}
-  - component: {fileID: 114048394619118306}
   - component: {fileID: 114650785997471276}
+  - component: {fileID: 114048394619118306}
   m_Layer: 11
   m_Name: Mine
   m_TagString: Untagged
