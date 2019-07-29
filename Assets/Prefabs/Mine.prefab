@@ -215,7 +215,7 @@ MonoBehaviour:
   layermask:
     serializedVersion: 2
     m_Bits: 1024
-  MiningTime: 2
+  MiningTime: 0.4
 --- !u!114 &114650785997471276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -227,11 +227,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 593151c570afadf41b270241849066ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentBuildingType: 0
   direction: {x: 0, y: 0, z: 0}
   onlyItems:
     serializedVersion: 2
     m_Bits: 512
+  inupts:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!136 &136295585217892104
 CapsuleCollider:
   m_ObjectHideFlags: 1
