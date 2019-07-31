@@ -50,6 +50,42 @@ public class Building : MonoBehaviour
             StartCoroutine(CheckInputs());
     }
 
+    //This script creates the containers for items, and creates as many as specified in the BuildingList script.
+    void InstantiateItemContainers()
+    {
+
+        itemContainerArrayOutput = new ItemContainer[building.Outputs];
+        itemContainerArrayInput = new ItemContainer[building.Inputs];
+
+        //The two for loops fill out the Container array and seperates between outputs and inputs.
+
+        for (int i = 0; i < itemContainerArrayOutput.Length; i++)
+        {
+            itemContainerArrayOutput[i] = new ItemContainer(ItemContainer.ContainerType.Output, ItemList.Nothing, i * 110);
+        }
+        for (int i = 0; i < itemContainerArrayInput.Length; i++)
+        {
+            itemContainerArrayOutput[i] = new ItemContainer(ItemContainer.ContainerType.Input, ItemList.Nothing, i * 110);
+        }
+
+        int j = 0;
+        for (int i = 0; i < itemContainerArrayOutput.Length;)
+        {
+
+            if (i < building.Outputs)
+            {
+                i++;
+            }
+            else
+            {
+                itemContainerArrayOutput[i] = new ItemContainer(ItemContainer.ContainerType.Input, ItemList.IronOre, j * 110);
+                i++;
+                j++;
+            }
+
+        }
+    }
+
     //This script controlls the output of the Building. It first scans to see if an item already exists, and if not then it creates
     //The output gameobject to be sent on conveyor belts to another building.
     Collider[] hit;
@@ -70,8 +106,6 @@ public class Building : MonoBehaviour
                 }
             }
         }
-
-
             /*if (hit.Length == 0 && outputResource.Count > 0)
             {
                 GameObject item = Instantiate(mine.resourceToMine.ItemObject, transform.position - new Vector3(0,0.25f), 
@@ -110,7 +144,6 @@ public class Building : MonoBehaviour
 
                         break;
                     }
-
                 }                
             }
         }
@@ -118,38 +151,4 @@ public class Building : MonoBehaviour
         StartCoroutine(CheckInputs());
     }
 
-    void InstantiateItemContainers()
-    {
-
-        itemContainerArrayOutput = new ItemContainer[building.Outputs];
-        itemContainerArrayInput = new ItemContainer[building.Inputs];
-
-        //The two for loops fill out the Container array and seperates between outputs and inputs.
-
-        for (int i = 0; i < itemContainerArrayOutput.Length; i++)
-        {
-                itemContainerArrayOutput[i] = new ItemContainer(ItemContainer.ContainerType.Output, ItemList.Nothing, i * 110);
-        }
-        for (int i = 0; i < itemContainerArrayInput.Length; i++)
-        {
-                itemContainerArrayOutput[i] = new ItemContainer(ItemContainer.ContainerType.Input, ItemList.Nothing, i * 110);
-        }
-
-        int j = 0;
-        for (int i = 0; i < itemContainerArrayOutput.Length;)
-        {
-
-            if (i < building.Outputs)
-            {
-                i++;
-            }
-            else
-            {
-                itemContainerArrayOutput[i] = new ItemContainer(ItemContainer.ContainerType.Input, ItemList.IronOre, j * 110);
-                i++;
-                j++;
-            }
-
-        }
-    }
 }

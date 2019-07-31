@@ -114,7 +114,6 @@ public class BuildingList
 
 
     //LIST OF BUILDINGS
-
     public static BuildingList Nothing = new BuildingList(0, BuildingTypes.Nothing);
     public static BuildingList Mine = new BuildingList(1, BuildingTypes.Mine, BuildingReferenceList.MineGO, 0, 2);
     public static BuildingList Conveyor = new BuildingList(2, BuildingTypes.Conveyor, BuildingReferenceList.ConveyorGO, 1, 0, 0);

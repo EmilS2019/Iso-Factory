@@ -20,6 +20,7 @@ public class ResourceScript : MonoBehaviour {
     }
 
 
+
     IEnumerator FindDirection()
     {
         //The item sends a raycast to the current building it's on and finds out the direction
@@ -62,3 +63,17 @@ public class ResourceScript : MonoBehaviour {
         yield return StartCoroutine(FindDirection());
     }
 }
+
+/*class testing
+{
+    public static List<A> Test<A>() where A : class, new()
+    {
+        A entry = new A();
+        var cols = entry.GetType().GetProperties();
+
+        
+
+
+        return null;
+    }
+}*/
