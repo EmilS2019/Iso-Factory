@@ -113,25 +113,15 @@ public class Building : MonoBehaviour
                 //Foreach 
                 foreach (ItemContainer con in itemContainerArrayInput)
                 {
-                    print(con);
-                    print(con.item);
-                    print(con.item.CurrentResourceType);
-                    print(rs);
-                    print(rs.Item);
-                    print(rs.Item.CurrentResourceType);
-
-
                     //If the item containers resource matches the one that's being fed in, increase the amount by one and destroy the game object.
                     if (con.item.CurrentResourceType == rs.Item.CurrentResourceType && con.amount < con.item.MaxStack)
                     {
-                        print("here");
                         ItemContainer.UpdateValue(++con.amount, con);
                         break;
                     }
                     //Otherwise use an empty one
                     else if (con.item.CurrentResourceType == ItemList.ResourceType.Nothing)
                     {
-                        print("down here");
                         con.item = rs.Item;
                         ItemContainer.UpdateValue(++con.amount, con);
                         break;
@@ -141,29 +131,6 @@ public class Building : MonoBehaviour
                 Destroy(hit[0].gameObject);
             }
         }
-
-        /*foreach (GameObject input in inupts)
-        {
-            hit = Physics.OverlapSphere(input.transform.position, 0.2f, onlyItems);
-
-            if (hit.Length > 0)
-            {
-                ResourceScript rs = hit[0].GetComponent<ResourceScript>();
-
-                for (int i = 0; i < inputResources.Count; i++)
-                {
-                    if (inputResources[i].Contains(rs.resourceType) || inputResources[i].Count == 0)
-                    {
-                        inputResources[i].Add(rs.resourceType);
-
-                        print(inputResources[i].Count);
-                        Destroy(hit[0].gameObject);
-
-                        break;
-                    }
-                }                
-            }
-        }*/
         yield return new WaitForFixedUpdate();
         StartCoroutine(CheckInputs());
     }
