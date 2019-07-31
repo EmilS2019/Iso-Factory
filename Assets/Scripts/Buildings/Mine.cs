@@ -36,25 +36,22 @@ public class Mine : MonoBehaviour {
 
     public float MiningTime;
 
+    //Mines the resource that has been passed in.
     public IEnumerator Mining(ItemList resource)
     {
         yield return new WaitForSeconds(MiningTime);
 
-        if (building.outputResource.Count < resource.MaxStack)
+        foreach (ItemContainer output in building.itemContainerArrayOutput)
         {
-            foreach (ItemContainer output in building.itemContainerArrayOutput)
+            if (output.amount < resource.MaxStack)
             {
-                //Debug.Log(output.item.CurrentResourceType + " has to be equal to either " + output.item.CurrentResourceType +
-                    //" or nothing. "+ output.amount + " has to be less than "+ resource.MaxStack);
-                
-
                 if (output.item.CurrentResourceType == resource.CurrentResourceType && output.amount < resource.MaxStack)
                 {
                     output.amount++;
                     ItemContainer.UpdateValue(output.amount, output);
                     break;
                 }
-                else if(output.item == ItemList.Nothing)
+                else if (output.item == ItemList.Nothing)
                 {
                     output.item = resource;
                     ItemContainer.UpdateValue(1, output);
@@ -62,7 +59,10 @@ public class Mine : MonoBehaviour {
                 }
             }
         }
+
         StartCoroutine(Mining(resource));
     }
-
 }
+    
+
+

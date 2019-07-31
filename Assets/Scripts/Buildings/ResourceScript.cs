@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ResourceScript : MonoBehaviour {
 
-    public ItemList resourceType;
+    public ItemList Item;
     public float speed = 3;
     public Vector3 direction;
     Ray ray;

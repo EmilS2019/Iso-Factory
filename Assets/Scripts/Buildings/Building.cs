@@ -85,6 +85,8 @@ public class Building : MonoBehaviour
                 if (itemContainerArrayOutput[i].item.CurrentResourceType != ItemList.ResourceType.Nothing && itemContainerArrayOutput[i].amount > 0)
                 {
                     GameObject item = Instantiate(itemContainerArrayOutput[i].item.ItemObject, transform.position - new Vector3(0, 0.25f), Quaternion.identity, HierarchyManager.IronOre);
+                    item.GetComponent<ResourceScript>().Item = itemContainerArrayOutput[i].item;
+
                     ItemContainer.UpdateValue(--itemContainerArrayOutput[i].amount, itemContainerArrayOutput[i]);
                 }
             }
@@ -100,18 +102,47 @@ public class Building : MonoBehaviour
     {
         foreach (GameObject input in inupts)
         {
+
             hit = Physics.OverlapSphere(input.transform.position, 0.2f, onlyItems);
 
+            //if it spots an object near it's input (The red thing on the back of buildings)
             if (hit.Length > 0)
             {
                 ResourceScript rs = hit[0].GetComponent<ResourceScript>();
-                
 
-                //print(inputResources[i].Count);
+                //Foreach 
+                foreach (ItemContainer con in itemContainerArrayInput)
+                {
+                    print(con);
+                    print(con.item);
+                    print(con.item.CurrentResourceType);
+                    print(rs);
+                    print(rs.Item);
+                    print(rs.Item.CurrentResourceType);
+
+
+                    //If the item containers resource matches the one that's being fed in, increase the amount by one and destroy the game object.
+                    if (con.item.CurrentResourceType == rs.Item.CurrentResourceType && con.amount < con.item.MaxStack)
+                    {
+                        print("here");
+                        ItemContainer.UpdateValue(++con.amount, con);
+                        break;
+                    }
+                    //Otherwise use an empty one
+                    else if (con.item.CurrentResourceType == ItemList.ResourceType.Nothing)
+                    {
+                        print("down here");
+                        con.item = rs.Item;
+                        ItemContainer.UpdateValue(++con.amount, con);
+                        break;
+                    }
+                }
+
+                Destroy(hit[0].gameObject);
             }
         }
 
-        foreach (GameObject input in inupts)
+        /*foreach (GameObject input in inupts)
         {
             hit = Physics.OverlapSphere(input.transform.position, 0.2f, onlyItems);
 
@@ -132,7 +163,7 @@ public class Building : MonoBehaviour
                     }
                 }                
             }
-        }
+        }*/
         yield return new WaitForFixedUpdate();
         StartCoroutine(CheckInputs());
     }
