@@ -64,33 +64,24 @@ public class ItemContainer
 
     //Toggle visibility of the Containers.
     public static void ToggleVisibility(ItemContainer container, bool on)
-    {
-        if (container.textGO.activeInHierarchy)
-            container.textGO.SetActive(false);
-        else
-            container.textGO.SetActive(true);
+    {        
+            container.textGO.SetActive(on);
     }
 
     public static void ToggleVisibility(ItemContainer[] containers, bool on)
     {
         foreach (ItemContainer container in containers)
         {
-
-            if (on)
-                container.textGO.SetActive(true);
-            else
-                container.textGO.SetActive(false);
+            container.textGO.SetActive(on);
         }
 
     }
 
-    public static void ToggleVisibilityAll()
+    public static void ToggleVisibilityAll(bool on)
     {
-        Transform itemCan = GameObject.Find("Item Canvas").transform;
-
-        for (int i = 1; i < itemCan.childCount; i++)
+        for (int i = 1; i < HierarchyManager.ItemCanvas.childCount; i++)
         {
-            itemCan.GetChild(i).gameObject.SetActive(false);
+            HierarchyManager.ItemCanvas.GetChild(i).gameObject.SetActive(on);
         }
     }
 }

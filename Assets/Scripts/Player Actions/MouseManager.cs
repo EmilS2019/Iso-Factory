@@ -8,11 +8,6 @@ public class MouseManager : MonoBehaviour {
     int rotation = 1;
     public GameObject SpotLight;
     public Text BuildingTypeText;
-    /*
-    public GameObject outputText;
-    public GameObject inputText;
-    public Text StackText;
-    public Text StackText2;*/
     Vector3 mousePosition;
     RaycastHit hit;
     BuildingList buildingtype;
@@ -52,8 +47,6 @@ public class MouseManager : MonoBehaviour {
 
     void Start()
     {
-
-        //outputText.SetActive(false);
         SelectedObject = null;
     }
 
@@ -121,9 +114,6 @@ public class MouseManager : MonoBehaviour {
 
             if (destroy)
             {
-                /*if(StackText.gameObject.activeInHierarchy)
-                    StackText.gameObject.SetActive(false);*/
-
                 Destroy(selection.gameObject);
             }
             else
@@ -188,7 +178,7 @@ public class MouseManager : MonoBehaviour {
     public void ShowSelectedObjectUI(GameObject SelectedBuilding)
     {
         //Resets previous text
-        ItemContainer.ToggleVisibilityAll();
+        ItemContainer.ToggleVisibilityAll(false);
 
         if (SelectedBuilding != null)
         {
@@ -202,15 +192,19 @@ public class MouseManager : MonoBehaviour {
                 //Type
                 BuildingTypeText.gameObject.transform.parent.gameObject.SetActive(true);
                 BuildingTypeText.text = building.building.CurrentBuildingType.ToString();
-                ItemContainer.ToggleVisibility(building.itemContainerArrayOutput, true);
+
+                if (building.itemContainerArrayOutput.Length > 0)
+                    ItemContainer.ToggleVisibility(building.itemContainerArrayOutput, true);
+
+                if (building.itemContainerArrayInput.Length > 0)
+                    ItemContainer.ToggleVisibility(building.itemContainerArrayInput, true);
 
             }
-
             building = null;
         }
     }
 
-    List <ItemContainer> itemContainers = new List<ItemContainer>();
+    List <ItemContainer> ItemContainers = new List<ItemContainer>();
 
     //This function is called by the building buttons. 
     public void ChangeBuilding(int build)

@@ -65,24 +65,7 @@ public class Building : MonoBehaviour
         }
         for (int i = 0; i < itemContainerArrayInput.Length; i++)
         {
-            itemContainerArrayOutput[i] = new ItemContainer(ItemContainer.ContainerType.Input, ItemList.Nothing, i * 110);
-        }
-
-        int j = 0;
-        for (int i = 0; i < itemContainerArrayOutput.Length;)
-        {
-
-            if (i < building.Outputs)
-            {
-                i++;
-            }
-            else
-            {
-                itemContainerArrayOutput[i] = new ItemContainer(ItemContainer.ContainerType.Input, ItemList.IronOre, j * 110);
-                i++;
-                j++;
-            }
-
+            itemContainerArrayInput[i] = new ItemContainer(ItemContainer.ContainerType.Input, ItemList.Nothing, i * 110);
         }
     }
 
@@ -106,15 +89,6 @@ public class Building : MonoBehaviour
                 }
             }
         }
-            /*if (hit.Length == 0 && outputResource.Count > 0)
-            {
-                GameObject item = Instantiate(mine.resourceToMine.ItemObject, transform.position - new Vector3(0,0.25f), 
-                                    Quaternion.identity, HierarchyManager.IronOre);
-                ResourceScript rScript = item.GetComponent<ResourceScript>();
-                rScript.resourceType = outputResource[0];
-                outputResource.Remove(outputResource[0]);
-            }*/
-
         yield return new WaitForFixedUpdate();
         StartCoroutine(CheckOuput());
     }
@@ -124,6 +98,18 @@ public class Building : MonoBehaviour
 
     IEnumerator CheckInputs()
     {
+        foreach (GameObject input in inupts)
+        {
+            hit = Physics.OverlapSphere(input.transform.position, 0.2f, onlyItems);
+
+            if (hit.Length > 0)
+            {
+                ResourceScript rs = hit[0].GetComponent<ResourceScript>();
+                
+
+                //print(inputResources[i].Count);
+            }
+        }
 
         foreach (GameObject input in inupts)
         {
