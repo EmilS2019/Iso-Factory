@@ -90,6 +90,15 @@ public class ItemContainer
         foreach (ItemContainer c in containers)
         {
             MonoBehaviour.Destroy(c.textGO.gameObject);
+            c.item = ItemList.Nothing;
+            c.amount = 0;
         }
+    }
+    public static void Destroy(ItemContainer c)
+    {
+
+        MonoBehaviour.Destroy(c.textGO.gameObject);
+        c.item = ItemList.Nothing;
+        c.amount = 0;
     }
 }

@@ -206,8 +206,6 @@ public class MouseManager : MonoBehaviour {
         }
     }
 
-    List <ItemContainer> ItemContainers = new List<ItemContainer>();
-
     //This function is called by the building buttons. 
     public void ChangeBuilding(int build)
     {

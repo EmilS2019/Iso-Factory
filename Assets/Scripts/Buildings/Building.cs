@@ -5,6 +5,7 @@ using UnityEngine;
 public class Building : MonoBehaviour
 {
     Mine mine;
+    Splitter splitter;
     public Vector3 direction;
     public BuildingList building;
     public MouseManager Mousemanager { get; protected set; }
@@ -29,6 +30,8 @@ public class Building : MonoBehaviour
                 break;
 
             case (BuildingList.BuildingTypes.Splitter):
+                splitter = gameObject.AddComponent<Splitter>();
+                splitter.building = this;
                 break;
 
             default:
@@ -78,7 +81,6 @@ public class Building : MonoBehaviour
                 {
                     GameObject item = Instantiate(itemContainerArrayOutput[i].item.ItemObject, transform.position - new Vector3(0, 0.25f), Quaternion.identity, HierarchyManager.IronOre);
                     item.GetComponent<ResourceScript>().Item = itemContainerArrayOutput[i].item;
-
                     ItemContainer.UpdateValue(--itemContainerArrayOutput[i].amount, itemContainerArrayOutput[i]);
                 }
             }
@@ -119,6 +121,9 @@ public class Building : MonoBehaviour
                         break;
                     }
                 }
+
+                if (building.CurrentBuildingType == BuildingList.BuildingTypes.Splitter)
+                    splitter.Split();
 
                 Destroy(hit[0].gameObject);
             }
