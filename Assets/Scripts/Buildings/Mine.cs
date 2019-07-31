@@ -61,14 +61,7 @@ public class Mine : MonoBehaviour {
                     break;
                 }
             }
-
-            //Makes sure that the UI updates when the amount of materials update. 
-            //TO-DO: Move this to Building script.
-            if (mousemanager.SelectedObject == gameObject)
-                mousemanager.ShowSelectedObjectUI(gameObject);
-
         }
-
         StartCoroutine(Mining(resource));
     }
 

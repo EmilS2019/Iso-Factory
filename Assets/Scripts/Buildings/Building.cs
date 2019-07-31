@@ -57,15 +57,29 @@ public class Building : MonoBehaviour
     IEnumerator CheckOuput()
     {
 
-        hit = Physics.OverlapSphere(transform.position, 0.20f, onlyItems);
-        if (hit.Length == 0 && outputResource.Count > 0)
+        hit = Physics.OverlapSphere(transform.position, 0.2f, onlyItems);
+
+        if (hit.Length == 0)
         {
-            GameObject item = Instantiate(mine.resourceToMine.ItemObject, transform.position - new Vector3(0,0.25f), 
-                                Quaternion.identity, HierarchyManager.IronOre);
-            ResourceScript rScript = item.GetComponent<ResourceScript>();
-            rScript.resourceType = outputResource[0];
-            outputResource.Remove(outputResource[0]);
+            for (int i = itemContainerArrayOutput.Length - 1; i >= 0; i--)
+            {
+                if (itemContainerArrayOutput[i].item.CurrentResourceType != ItemList.ResourceType.Nothing && itemContainerArrayOutput[i].amount > 0)
+                {
+                    GameObject item = Instantiate(itemContainerArrayOutput[i].item.ItemObject, transform.position - new Vector3(0, 0.25f), Quaternion.identity, HierarchyManager.IronOre);
+                    ItemContainer.UpdateValue(--itemContainerArrayOutput[i].amount, itemContainerArrayOutput[i]);
+                }
+            }
         }
+
+
+            /*if (hit.Length == 0 && outputResource.Count > 0)
+            {
+                GameObject item = Instantiate(mine.resourceToMine.ItemObject, transform.position - new Vector3(0,0.25f), 
+                                    Quaternion.identity, HierarchyManager.IronOre);
+                ResourceScript rScript = item.GetComponent<ResourceScript>();
+                rScript.resourceType = outputResource[0];
+                outputResource.Remove(outputResource[0]);
+            }*/
 
         yield return new WaitForFixedUpdate();
         StartCoroutine(CheckOuput());
@@ -79,7 +93,7 @@ public class Building : MonoBehaviour
 
         foreach (GameObject input in inupts)
         {
-            hit = Physics.OverlapSphere(input.transform.position, 0.20f, onlyItems);
+            hit = Physics.OverlapSphere(input.transform.position, 0.2f, onlyItems);
 
             if (hit.Length > 0)
             {
@@ -112,7 +126,6 @@ public class Building : MonoBehaviour
 
         //The two for loops fill out the Container array and seperates between outputs and inputs.
 
-
         for (int i = 0; i < itemContainerArrayOutput.Length; i++)
         {
                 itemContainerArrayOutput[i] = new ItemContainer(ItemContainer.ContainerType.Output, ItemList.Nothing, i * 110);
@@ -121,7 +134,6 @@ public class Building : MonoBehaviour
         {
                 itemContainerArrayOutput[i] = new ItemContainer(ItemContainer.ContainerType.Input, ItemList.Nothing, i * 110);
         }
-
 
         int j = 0;
         for (int i = 0; i < itemContainerArrayOutput.Length;)
@@ -140,7 +152,4 @@ public class Building : MonoBehaviour
 
         }
     }
-
-
-
 }
