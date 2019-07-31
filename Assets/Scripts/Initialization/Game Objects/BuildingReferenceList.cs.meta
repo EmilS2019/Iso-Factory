@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 5767c17426687244b9e80ba605a0f7f1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _MineGO: {fileID: 1866105287597620, guid: 1f1efaf201aff7b4fa4d6336d3d4c589, type: 2}
+  - _ConveyorGO: {fileID: 1899928987687664, guid: edffb9f51873a214ea80f6c85e7561b9,
+      type: 2}
+  - _SplitterGO: {fileID: 1329514189143192, guid: 1cfb3e89669550a479ea0eec39fa5418,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
