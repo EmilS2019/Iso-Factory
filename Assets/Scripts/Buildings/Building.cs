@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class Building : MonoBehaviour
 {
-    //TO-DO: SLOWLY phase these out
-    public List<ItemList> outputResource = new List<ItemList>();
-    public List<ItemList> inputResource1 = new List<ItemList>();
-    public List<ItemList> inputResource2 = new List<ItemList>();
-    public List<List<ItemList>> inputResources;
-
-
     Mine mine;
     public Vector3 direction;
     public BuildingList building;
@@ -21,7 +14,6 @@ public class Building : MonoBehaviour
 
     public void Start()
     { 
-        inputResources = new List<List<ItemList>>() { inputResource1, inputResource2 };
         Mousemanager = FindObjectOfType<MouseManager>();
 
         InstantiateItemContainers();

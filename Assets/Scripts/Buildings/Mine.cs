@@ -28,6 +28,7 @@ public class Mine : MonoBehaviour {
             }
             else
             {
+
                 Destroy(gameObject);
             }
         }

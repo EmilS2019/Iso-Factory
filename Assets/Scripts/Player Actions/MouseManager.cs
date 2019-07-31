@@ -58,8 +58,8 @@ public class MouseManager : MonoBehaviour {
     {
 
         Transform selection = hit.transform;
-        Component hasComponentTile = selection.gameObject.GetComponent<Tile>();
-        Component hasComponentBuilding = selection.gameObject.GetComponent<Building>();
+        Tile hasComponentTile = selection.gameObject.GetComponent<Tile>();
+        Building hasComponentBuilding = selection.gameObject.GetComponent<Building>();
         SelectedObject = selection.gameObject;
         //Do something to the tile you just clicked on.
         if (hasComponentTile != null)
@@ -114,6 +114,8 @@ public class MouseManager : MonoBehaviour {
 
             if (destroy)
             {
+                ItemContainer.Destroy(hasComponentBuilding.itemContainerArrayInput);
+                ItemContainer.Destroy(hasComponentBuilding.itemContainerArrayOutput);
                 Destroy(selection.gameObject);
             }
             else

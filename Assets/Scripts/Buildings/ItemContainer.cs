@@ -84,4 +84,12 @@ public class ItemContainer
             HierarchyManager.ItemCanvas.GetChild(i).gameObject.SetActive(on);
         }
     }
+
+    public static void Destroy(ItemContainer[] containers)
+    {
+        foreach (ItemContainer c in containers)
+        {
+            MonoBehaviour.Destroy(c.textGO.gameObject);
+        }
+    }
 }
