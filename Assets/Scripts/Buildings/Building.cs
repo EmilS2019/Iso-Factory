@@ -10,8 +10,8 @@ public class Building : MonoBehaviour
     public BuildingList building;
     public MouseManager Mousemanager { get; protected set; }
 
-    public ItemContainer[] itemContainerArrayOutput;
-    public ItemContainer[] itemContainerArrayInput;
+    public ItemContainer[] OutputContainers;
+    public ItemContainer[] InputContainers;
 
     public void Start()
     { 
@@ -49,18 +49,18 @@ public class Building : MonoBehaviour
     void InstantiateItemContainers()
     {
 
-        itemContainerArrayOutput = new ItemContainer[building.Outputs];
-        itemContainerArrayInput = new ItemContainer[building.Inputs];
+        OutputContainers = new ItemContainer[building.Outputs];
+        InputContainers = new ItemContainer[building.Inputs];
 
         //The two for loops fill out the Container array and seperates between outputs and inputs.
 
-        for (int i = 0; i < itemContainerArrayOutput.Length; i++)
+        for (int i = 0; i < OutputContainers.Length; i++)
         {
-            itemContainerArrayOutput[i] = new ItemContainer(ItemContainer.ContainerType.Output, ItemList.Nothing, i * 110);
+            OutputContainers[i] = new ItemContainer(ItemContainer.ContainerType.Output, ItemList.Nothing, i * 110);
         }
-        for (int i = 0; i < itemContainerArrayInput.Length; i++)
+        for (int i = 0; i < InputContainers.Length; i++)
         {
-            itemContainerArrayInput[i] = new ItemContainer(ItemContainer.ContainerType.Input, ItemList.Nothing, i * 110);
+            InputContainers[i] = new ItemContainer(ItemContainer.ContainerType.Input, ItemList.Nothing, i * 110);
         }
     }
 
@@ -70,18 +70,28 @@ public class Building : MonoBehaviour
     public LayerMask onlyItems;
     IEnumerator CheckOuput()
     {
+        //The position of the output (which is rounded to be the center of the block the output is placed on, aka in the building).
+        int x = 0;
 
-        hit = Physics.OverlapSphere(transform.position, 0.2f, onlyItems);
 
+        if (outputs.Length > 1)
+            x = Random.Range(0, OutputContainers.Length);
+
+      
+        Vector3 pos = outputs[x].transform.position;
+        pos = new Vector3(Mathf.RoundToInt(pos.x), 0.666f , (Mathf.RoundToInt(pos.z)));
+
+        //Scans for objects in the nearby, and if no one is nearby then create a new item and assign it some values. 
+        hit = Physics.OverlapSphere(pos, 0.2f, onlyItems);
         if (hit.Length == 0)
         {
-            for (int i = itemContainerArrayOutput.Length - 1; i >= 0; i--)
+            for (int i = OutputContainers.Length - 1; i >= 0; i--)
             {
-                if (itemContainerArrayOutput[i].item.CurrentResourceType != ItemList.ResourceType.Nothing && itemContainerArrayOutput[i].amount > 0)
+                if (OutputContainers[i].item.CurrentResourceType != ItemList.ResourceType.Nothing && OutputContainers[i].amount > 0)
                 {
-                    GameObject item = Instantiate(itemContainerArrayOutput[i].item.ItemObject, transform.position - new Vector3(0, 0.25f), Quaternion.identity, HierarchyManager.IronOre);
-                    item.GetComponent<ResourceScript>().Item = itemContainerArrayOutput[i].item;
-                    ItemContainer.UpdateValue(--itemContainerArrayOutput[i].amount, itemContainerArrayOutput[i]);
+                    GameObject item = Instantiate(OutputContainers[i].item.ItemObject, pos, Quaternion.identity, HierarchyManager.IronOre);
+                    item.GetComponent<ResourceScript>().Item = OutputContainers[i].item;
+                    ItemContainer.UpdateValue(--OutputContainers[i].amount, OutputContainers[i]);
                 }
             }
         }
@@ -91,6 +101,7 @@ public class Building : MonoBehaviour
 
     //TO-DO: In the prefab, add all inputs and put it under one empty object as their parent
     public GameObject[] inupts;
+    public GameObject[] outputs;
 
     IEnumerator CheckInputs()
     {
@@ -105,16 +116,12 @@ public class Building : MonoBehaviour
                 ResourceScript rs = hit[0].GetComponent<ResourceScript>();
 
                 //Foreach 
-                foreach (ItemContainer con in itemContainerArrayInput)
+                foreach (ItemContainer con in InputContainers)
                 {
 
-                    if (building.CurrentBuildingType == BuildingList.BuildingTypes.Splitter)
+                    if (building.CurrentBuildingType == BuildingList.BuildingTypes.Splitter && con.amount < con.item.MaxStack)
                     {
-                        ItemContainer a = ItemContainer.FindItemContainer(itemContainerArrayOutput, con.item);
-                        ItemContainer.UpdateValue(++con.amount, a);
-
-                        if (a.item == ItemList.Nothing)
-                            a.item = rs.Item;
+                        splitter.Split(rs, con);
                         break;
                     }
 

@@ -13,24 +13,13 @@ public class Splitter : MonoBehaviour {
 
     }
 
-    public void Split(ItemContainer con)
+    public void Split(ResourceScript rs, ItemContainer con)
     {
+        ItemContainer a = ItemContainer.FindItemContainer(building.OutputContainers, rs.Item);
 
+        if (a.item == ItemList.Nothing)
+            a.item = rs.Item;
 
-
-
-        /*if (building.itemContainerArrayInput != null)
-        {
-            foreach (ItemContainer f in building.itemContainerArrayInput)
-            {
-                building.itemContainerArrayOutput[Random.Range(0, building.itemContainerArrayOutput.Length)] = f;
-                f.amount--;
-                if (f.amount <= 0)
-                {
-                    f.item = ItemList.Nothing;
-                    f.amount = 0;
-                }
-            }
-        }*/
+        ItemContainer.UpdateValue(++con.amount, a);
     }
 }

@@ -42,7 +42,7 @@ public class Mine : MonoBehaviour {
     {
         yield return new WaitForSeconds(MiningTime);
 
-        foreach (ItemContainer output in building.itemContainerArrayOutput)
+        foreach (ItemContainer output in building.OutputContainers)
         {
             if (output.amount < resource.MaxStack)
             {

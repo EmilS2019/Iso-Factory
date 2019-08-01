@@ -114,8 +114,8 @@ public class MouseManager : MonoBehaviour {
 
             if (destroy)
             {
-                ItemContainer.Destroy(hasComponentBuilding.itemContainerArrayInput);
-                ItemContainer.Destroy(hasComponentBuilding.itemContainerArrayOutput);
+                ItemContainer.Destroy(hasComponentBuilding.InputContainers);
+                ItemContainer.Destroy(hasComponentBuilding.OutputContainers);
                 Destroy(selection.gameObject);
             }
             else
@@ -195,11 +195,11 @@ public class MouseManager : MonoBehaviour {
                 BuildingTypeText.gameObject.transform.parent.gameObject.SetActive(true);
                 BuildingTypeText.text = building.building.CurrentBuildingType.ToString();
 
-                if (building.itemContainerArrayOutput.Length > 0)
-                    ItemContainer.ToggleVisibility(building.itemContainerArrayOutput, true);
+                if (building.OutputContainers.Length > 0)
+                    ItemContainer.ToggleVisibility(building.OutputContainers, true);
 
-                if (building.itemContainerArrayInput.Length > 0)
-                    ItemContainer.ToggleVisibility(building.itemContainerArrayInput, true);
+                if (building.InputContainers.Length > 0)
+                    ItemContainer.ToggleVisibility(building.InputContainers, true);
 
             }
             building = null;

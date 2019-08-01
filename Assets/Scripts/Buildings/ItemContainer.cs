@@ -110,14 +110,21 @@ public class ItemContainer
     /// <returns></returns>
     public static ItemContainer FindItemContainer(ItemContainer[] itemcon, ItemList item)
     {
-
         foreach (ItemContainer itemc in itemcon)
         {
+            if (false)
+            {
+                /*Debug.Log(item);
+                Debug.Log(item.CurrentResourceType);
+                Debug.Log(itemc);
+                Debug.Log(itemc.item);
+                Debug.Log(itemc.item.CurrentResourceType);*/
+            }
+
             if ((item.CurrentResourceType == itemc.item.CurrentResourceType
                             || itemc.item.CurrentResourceType == ItemList.ResourceType.Nothing) && itemc.amount < item.MaxStack)
                 return itemc;
-        }
-        
+        }      
         return null;
     }
 
