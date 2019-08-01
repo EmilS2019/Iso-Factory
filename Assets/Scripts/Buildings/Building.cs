@@ -97,9 +97,13 @@ public class Building : MonoBehaviour
             {
                 if (OutputContainers[i].item.CurrentResourceType != ItemList.ResourceType.Nothing && OutputContainers[i].amount > 0)
                 {
+                    print(OutputContainers[i]);
+                    print(OutputContainers[i].item);
+                    print(OutputContainers[i].item.ItemObject);
+
                     GameObject item = Instantiate(OutputContainers[i].item.ItemObject, pos, Quaternion.identity, HierarchyManager.IronOre);
                     item.GetComponent<ResourceScript>().Item = OutputContainers[i].item;
-                    ItemContainer.UpdateValue(--OutputContainers[i].amount, OutputContainers[i]);
+                    ItemContainer.UpdateValue(-1, OutputContainers[i]);
                 }
             }
         }
@@ -140,7 +144,7 @@ public class Building : MonoBehaviour
                     //If the item containers resource matches the one that's being fed in, increase the amount by one and destroy the game object.
                     if (con.item.CurrentResourceType == rs.Item.CurrentResourceType && con.amount < con.item.MaxStack)
                     {
-                        ItemContainer.UpdateValue(++con.amount, con);
+                        ItemContainer.UpdateValue(1, con);
                         break;
                     }
                     //Otherwise use an empty one

@@ -5,9 +5,9 @@ using UnityEngine;
 public class CraftingRecipie
 {
 
-    public ItemList[] requiredItems;
-    public ItemList finishedProduct;
-    public int amountProduced;
+    public ItemList[] requiredItems { get; protected set; }
+    public ItemList finishedProduct { get; protected set; }
+    public int amountProduced { get; protected set; }
 
     private CraftingRecipie(ItemList required1, int AmountRequired1, ItemList finished)
     {

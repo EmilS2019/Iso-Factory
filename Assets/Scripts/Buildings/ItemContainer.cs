@@ -58,7 +58,7 @@ public class ItemContainer
 
     public static void UpdateValue(int _amount, ItemContainer container)
     {
-        container.amount = _amount;
+        container.amount += _amount;
         container.text.text = container.amount.ToString();        
     }
 

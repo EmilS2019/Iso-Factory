@@ -48,8 +48,7 @@ public class Mine : MonoBehaviour {
             {
                 if (output.item.CurrentResourceType == resource.CurrentResourceType && output.amount < resource.MaxStack)
                 {
-                    output.amount++;
-                    ItemContainer.UpdateValue(output.amount, output);
+                    ItemContainer.UpdateValue(1, output);
                     break;
                 }
                 else if (output.item == ItemList.Nothing)

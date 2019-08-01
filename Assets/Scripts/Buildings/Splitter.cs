@@ -14,6 +14,6 @@ public class Splitter : MonoBehaviour {
         if (a.item == ItemList.Nothing)
             a.item = rs.Item;
 
-        ItemContainer.UpdateValue(++con.amount, a);
+        ItemContainer.UpdateValue(1, a);
     }
 }

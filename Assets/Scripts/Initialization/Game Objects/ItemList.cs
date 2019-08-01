@@ -39,5 +39,5 @@ public class ItemList
 
     public static ItemList IronOre = new ItemList(ResourceType.Iron_Ore, ItemReferenceList.ironOreGO, 100);
     public static ItemList Nothing = new ItemList(ResourceType.Nothing);
-    public static ItemList IronIngot = new ItemList(ResourceType.Iron_Ingot, ItemReferenceList.ironOreGO, 100);
+    public static ItemList IronIngot = new ItemList(ResourceType.Iron_Ingot, ItemReferenceList.ironIngotGO, 100);
 }
