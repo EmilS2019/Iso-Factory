@@ -49,10 +49,6 @@ public class MouseManager : MonoBehaviour {
     void Start()
     {
         SelectedObject = null;
-        print(CraftingRecipie.ironIngot);
-        print(CraftingRecipie.ironIngot.amountProduced);
-        print(CraftingRecipie.ironIngot.finishedProduct.CurrentResourceType);
-        print(CraftingRecipie.ironIngot.requiredItems[0].CurrentResourceType);
     }
 
     public GameObject SelectedObject;
@@ -227,6 +223,8 @@ public class MouseManager : MonoBehaviour {
 
         destroy = false;
     }
+
+    
 
     //This is called when the "destroy" button is pressed.
     bool destroy = false;
