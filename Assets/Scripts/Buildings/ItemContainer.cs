@@ -12,13 +12,13 @@ public class ItemContainer
     public Text text;
     public GameObject textGO;
     public enum ContainerType { Input, Output, Storage }
-    public ContainerType currentContainerType;
+    public ContainerType CurrentContainerType { get; protected set; }
 
 
     public ItemContainer(ContainerType _currentContainerType, ItemList _itemList, float YOffset)
     {
         //Sets up basic values 
-        currentContainerType = _currentContainerType;
+        CurrentContainerType = _currentContainerType;
         amount = 0;
         item = _itemList;
 
@@ -29,7 +29,7 @@ public class ItemContainer
 
         //Shifts position
         Vector3 pos = new Vector3(0,YOffset);
-        switch (currentContainerType)
+        switch (CurrentContainerType)
         {
             case ContainerType.Input:
                 pos += new Vector3(-750, 70);
@@ -101,4 +101,25 @@ public class ItemContainer
         c.item = ItemList.Nothing;
         c.amount = 0;
     }
+
+    /// <summary>
+    /// Searches for and returns the first valid spot in the array that was passed in based on what item you put it.
+    /// </summary>
+    /// <param name="itemcon"></param>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    public static ItemContainer FindItemContainer(ItemContainer[] itemcon, ItemList item)
+    {
+
+        foreach (ItemContainer itemc in itemcon)
+        {
+            if ((item.CurrentResourceType == itemc.item.CurrentResourceType
+                            || itemc.item.CurrentResourceType == ItemList.ResourceType.Nothing) && itemc.amount < item.MaxStack)
+                return itemc;
+        }
+        
+        return null;
+    }
+
+    public delegate Tresult Func<in T, out Tresult>(T arg) where T : class;
 }

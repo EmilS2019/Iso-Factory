@@ -107,6 +107,17 @@ public class Building : MonoBehaviour
                 //Foreach 
                 foreach (ItemContainer con in itemContainerArrayInput)
                 {
+
+                    if (building.CurrentBuildingType == BuildingList.BuildingTypes.Splitter)
+                    {
+                        ItemContainer a = ItemContainer.FindItemContainer(itemContainerArrayOutput, con.item);
+                        ItemContainer.UpdateValue(++con.amount, a);
+
+                        if (a.item == ItemList.Nothing)
+                            a.item = rs.Item;
+                        break;
+                    }
+
                     //If the item containers resource matches the one that's being fed in, increase the amount by one and destroy the game object.
                     if (con.item.CurrentResourceType == rs.Item.CurrentResourceType && con.amount < con.item.MaxStack)
                     {
@@ -120,10 +131,12 @@ public class Building : MonoBehaviour
                         ItemContainer.UpdateValue(++con.amount, con);
                         break;
                     }
+
+
                 }
 
-                if (building.CurrentBuildingType == BuildingList.BuildingTypes.Splitter)
-                    splitter.Split();
+
+
 
                 Destroy(hit[0].gameObject);
             }

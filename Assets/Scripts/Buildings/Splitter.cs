@@ -13,9 +13,13 @@ public class Splitter : MonoBehaviour {
 
     }
 
-    public void Split()
+    public void Split(ItemContainer con)
     {
-        if (building.itemContainerArrayInput != null)
+
+
+
+
+        /*if (building.itemContainerArrayInput != null)
         {
             foreach (ItemContainer f in building.itemContainerArrayInput)
             {
@@ -27,6 +31,6 @@ public class Splitter : MonoBehaviour {
                     f.amount = 0;
                 }
             }
-        }
+        }*/
     }
 }
