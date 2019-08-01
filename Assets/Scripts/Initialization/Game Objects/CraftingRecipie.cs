@@ -17,10 +17,6 @@ public class CraftingRecipie
         amountProduced = 1;
     }
 
-
-
-
-
     public static CraftingRecipie ironIngot = new CraftingRecipie(ItemList.IronOre, 1, ItemList.IronIngot);
 
 }

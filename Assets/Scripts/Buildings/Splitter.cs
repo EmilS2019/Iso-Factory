@@ -7,12 +7,6 @@ public class Splitter : MonoBehaviour {
 
     public Building building;
 
-    void Start()
-    {   
-        building = GetComponent<Building>();
-
-    }
-
     public void Split(ResourceScript rs, ItemContainer con)
     {
         ItemContainer a = ItemContainer.FindItemContainer(building.OutputContainers, rs.Item);

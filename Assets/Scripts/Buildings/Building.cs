@@ -6,6 +6,7 @@ public class Building : MonoBehaviour
 {
     Mine mine;
     Splitter splitter;
+    Crafting crafting;
     public Vector3 direction;
     public BuildingList building;
     public MouseManager Mousemanager { get; protected set; }
@@ -33,6 +34,11 @@ public class Building : MonoBehaviour
             case (BuildingList.BuildingTypes.Splitter):
                 splitter = gameObject.AddComponent<Splitter>();
                 splitter.building = this;
+                break;
+
+            case (BuildingList.BuildingTypes.Smelter):
+                crafting = gameObject.AddComponent<Crafting>();
+                crafting.building = this;
                 break;
 
             default:
@@ -125,6 +131,10 @@ public class Building : MonoBehaviour
                     {
                         splitter.Split(rs, con);
                         break;
+                    }
+                    else if (gameObject.GetComponent<Crafting>() && con.amount < con.item.MaxStack)
+                    {
+                        crafting.Craft();
                     }
 
                     //If the item containers resource matches the one that's being fed in, increase the amount by one and destroy the game object.

@@ -224,8 +224,6 @@ public class MouseManager : MonoBehaviour {
         destroy = false;
     }
 
-    
-
     //This is called when the "destroy" button is pressed.
     bool destroy = false;
     public void Destroy()

@@ -50,7 +50,7 @@ public class ItemContainer
     {
         foreach (ItemContainer container in containers)
         {
-            container.amount = _amount;
+            container.amount += _amount;
             container.text.text = container.amount.ToString();
 
         }
