@@ -16,6 +16,7 @@ public class MouseManager : MonoBehaviour {
 
     void Update()
     {
+
         Ray rayMousePosition = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(rayMousePosition, out hit, onlyGroundAndBuildings))
@@ -72,13 +73,16 @@ public class MouseManager : MonoBehaviour {
                 switch (buildingtype.CurrentBuildingType)
                 {
                     case (BuildingList.BuildingTypes.Mine):
-                        InstantiateBuilding(buildingtype, 1);
+                        InstantiateBuilding(buildingtype, 1f);
                         break;
                     case (BuildingList.BuildingTypes.Conveyor):
                         InstantiateBuilding(buildingtype, 0.5f);
                         break;
                     case (BuildingList.BuildingTypes.Splitter):
                        InstantiateBuilding(buildingtype, 0.8f);
+                       break;
+                    case (BuildingList.BuildingTypes.Smelter):
+                       InstantiateBuilding(buildingtype, 1f);
                        break;
                     default:
                         break;

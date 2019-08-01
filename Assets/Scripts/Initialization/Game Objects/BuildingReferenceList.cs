@@ -14,12 +14,16 @@ public class BuildingReferenceList : MonoBehaviour {
     public GameObject _SplitterGO;
     public static GameObject SplitterGO;
 
+    public GameObject _SmelterGO;
+    public static GameObject SmelterGO;
+
 	void Start ()
     {
 
         MineGO = _MineGO;
         ConveyorGO = _ConveyorGO;
         SplitterGO = _SplitterGO;
+        SmelterGO = _SmelterGO;
     }
 
 }

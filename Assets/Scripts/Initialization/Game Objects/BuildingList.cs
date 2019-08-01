@@ -15,6 +15,7 @@ public class BuildingList
         Mine,
         Conveyor,
         Splitter,
+        Smelter,
         Storage
     }
 
@@ -118,6 +119,7 @@ public class BuildingList
     public static BuildingList Mine = new BuildingList(1, BuildingTypes.Mine, BuildingReferenceList.MineGO, 0, 2);
     public static BuildingList Conveyor = new BuildingList(2, BuildingTypes.Conveyor, BuildingReferenceList.ConveyorGO, 1, 0, 0);
     public static BuildingList Splitter = new BuildingList(3, BuildingTypes.Splitter, BuildingReferenceList.SplitterGO, 2, 2, 2);
+    public static BuildingList Smelter = new BuildingList(4, BuildingTypes.Smelter, BuildingReferenceList.SmelterGO, 1, 1, 1);
 
-    public static BuildingList[] buildinglist = new BuildingList[4] { Nothing, Mine, Conveyor, Splitter };
+    public static BuildingList[] buildinglist = new BuildingList[5] { Nothing, Mine, Conveyor, Splitter, Smelter };
 }

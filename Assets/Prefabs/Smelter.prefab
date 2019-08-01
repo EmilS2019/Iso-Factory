@@ -41,7 +41,6 @@ GameObject:
   - component: {fileID: 23031557614715492}
   - component: {fileID: 65052842079755668}
   - component: {fileID: 114996493723289728}
-  - component: {fileID: 114830202791941824}
   m_Layer: 11
   m_Name: Smelter
   m_TagString: Untagged
@@ -275,21 +274,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114830202791941824
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1098757457369666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df95d9c9b330f9f4fb1d987b5fa4b220, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  layermask:
-    serializedVersion: 2
-    m_Bits: 1024
-  MiningTime: 0.4
 --- !u!114 &114996493723289728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -305,7 +289,8 @@ MonoBehaviour:
   onlyItems:
     serializedVersion: 2
     m_Bits: 512
-  inupts: []
+  inupts:
+  - {fileID: 1787239498804334}
   outputs:
   - {fileID: 1024880126138846}
 --- !u!136 &136687822079419144
