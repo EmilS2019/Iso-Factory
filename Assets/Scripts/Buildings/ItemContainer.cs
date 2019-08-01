@@ -11,7 +11,7 @@ public class ItemContainer
     public int amount;
     public Text text;
     public GameObject textGO;
-    public enum ContainerType { Input, Output, Storage }
+    public enum ContainerType { Input, Output, Storage, Crafting }
     public ContainerType CurrentContainerType { get; protected set; }
 
 
