@@ -661,6 +661,7 @@ GameObject:
   - component: {fileID: 353649107}
   - component: {fileID: 353649106}
   - component: {fileID: 353649105}
+  - component: {fileID: 353649109}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -753,6 +754,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ItemCanvas: {fileID: 1940239760}
   _IronOre: {fileID: 1429225726}
+--- !u!114 &353649109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 353649102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dbf9101205da4459e5030b4b0b2342, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  craftingRecipieStructs:
+  - name: 
+  - name: 
 --- !u!1 &358613841
 GameObject:
   m_ObjectHideFlags: 0

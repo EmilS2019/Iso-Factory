@@ -12,6 +12,7 @@ public class Building : MonoBehaviour
 
     public ItemContainer[] OutputContainers;
     public ItemContainer[] InputContainers;
+    //public ItemContainer[] CraftingContainers;
 
     public void Start()
     { 
@@ -51,6 +52,7 @@ public class Building : MonoBehaviour
 
         OutputContainers = new ItemContainer[building.Outputs];
         InputContainers = new ItemContainer[building.Inputs];
+        //CraftingContainers = new ItemContainer[1];
 
         //The two for loops fill out the Container array and seperates between outputs and inputs.
 

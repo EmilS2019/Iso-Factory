@@ -49,6 +49,10 @@ public class MouseManager : MonoBehaviour {
     void Start()
     {
         SelectedObject = null;
+        print(CraftingRecipie.ironIngot);
+        print(CraftingRecipie.ironIngot.amountProduced);
+        print(CraftingRecipie.ironIngot.finishedProduct.CurrentResourceType);
+        print(CraftingRecipie.ironIngot.requiredItems[0].CurrentResourceType);
     }
 
     public GameObject SelectedObject;

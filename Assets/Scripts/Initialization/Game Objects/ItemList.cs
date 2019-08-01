@@ -14,7 +14,8 @@ public class ItemList
     public enum ResourceType
     {
         Nothing,
-        Iron_Ore
+        Iron_Ore,
+        Iron_Ingot
     }
     public ResourceType CurrentResourceType { get; protected set; }
     public GameObject ItemObject { get; protected set; }
@@ -38,4 +39,5 @@ public class ItemList
 
     public static ItemList IronOre = new ItemList(ResourceType.Iron_Ore, ItemReferenceList.ironOreGO, 100);
     public static ItemList Nothing = new ItemList(ResourceType.Nothing);
+    public static ItemList IronIngot = new ItemList(ResourceType.Iron_Ingot, ItemReferenceList.ironOreGO, 100);
 }
