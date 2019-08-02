@@ -111,6 +111,8 @@ public class Building : MonoBehaviour
         }
         yield return new WaitForFixedUpdate();
         StartCoroutine(CheckOuput());
+
+
     }
 
     //TO-DO: In the prefab, add all inputs and put it under one empty object as their parent

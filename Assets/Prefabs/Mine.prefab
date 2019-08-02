@@ -217,6 +217,8 @@ MonoBehaviour:
   onlyItems:
     serializedVersion: 2
     m_Bits: 512
+  inOverlapSphereRadius: 0
+  outOverlapSphereRadius: 0.2
   inupts: []
   outputs:
   - {fileID: 1874030550886188}
