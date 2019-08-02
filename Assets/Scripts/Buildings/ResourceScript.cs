@@ -24,7 +24,7 @@ public class ResourceScript : MonoBehaviour {
     IEnumerator FindDirection()
     {
         //The item sends a raycast to the current building it's on and finds out the direction
-        ray = new Ray(transform.position + transform.up + direction/2.5f, -transform.up);
+        ray = new Ray(transform.position + transform.up + direction/4f, -transform.up);
         Debug.DrawRay(ray.origin, ray.direction);
 
         if (Physics.Raycast(ray, out hit, onlyBuildings))

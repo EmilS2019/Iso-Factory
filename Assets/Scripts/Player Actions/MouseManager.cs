@@ -179,7 +179,6 @@ public class MouseManager : MonoBehaviour {
                 TheBuilding.layer = 11;
 
                 //Determines the buildings rotation, which is mostly used by items that travel.
-                print(rotation);
                 switch (rotation)
                 {
                     case (1):

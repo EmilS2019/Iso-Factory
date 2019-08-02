@@ -19,7 +19,6 @@ public class Building : MonoBehaviour
 
     public void Start()
     {
-        print(direction);
         SelectionMaterial.ChangeTransparency(gameObject, "Standard");
 
         Mousemanager = FindObjectOfType<MouseManager>();
@@ -83,6 +82,8 @@ public class Building : MonoBehaviour
     //The output gameobject to be sent on conveyor belts to another building.
     Collider[] hit;
     public LayerMask onlyItems;
+    public float inOverlapSphereRadius;
+    public float outOverlapSphereRadius;
     IEnumerator CheckOuput()
     {
         //The position of the output (which is rounded to be the center of the block the output is placed on, aka in the building).
@@ -95,7 +96,7 @@ public class Building : MonoBehaviour
         pos = new Vector3(Mathf.RoundToInt(pos.x), 0.666f , (Mathf.RoundToInt(pos.z)));
 
         //Scans for objects in the nearby, and if no one is nearby then create a new item and assign it some values. 
-        hit = Physics.OverlapSphere(pos, 0.2f, onlyItems);
+        hit = Physics.OverlapSphere(pos, outOverlapSphereRadius, onlyItems);
         if (hit.Length == 0)
         {
             for (int i = OutputContainers.Length - 1; i >= 0; i--)
@@ -121,7 +122,7 @@ public class Building : MonoBehaviour
         foreach (GameObject input in inupts)
         {
 
-            hit = Physics.OverlapSphere(input.transform.position, 0.2f, onlyItems);
+            hit = Physics.OverlapSphere(input.transform.position, inOverlapSphereRadius, onlyItems);
 
             //if it spots an object near it's input (The red thing on the back of buildings)
             if (hit.Length > 0)
