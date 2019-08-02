@@ -13,10 +13,11 @@ public class Building : MonoBehaviour
 
     public ItemContainer[] OutputContainers;
     public ItemContainer[] InputContainers;
-    //public ItemContainer[] CraftingContainers;
 
     public void Start()
-    { 
+    {
+        GetComponent<MeshRenderer>().material = SelectionMaterial.Selection(GetComponent<MeshRenderer>());
+
         Mousemanager = FindObjectOfType<MouseManager>();
 
         InstantiateItemContainers();
