@@ -14,9 +14,11 @@ public class Building : MonoBehaviour
     public ItemContainer[] OutputContainers;
     public ItemContainer[] InputContainers;
 
+    public float MiningTime;
+
     public void Start()
     {
-
+        print(direction);
         SelectionMaterial.ChangeTransparency(gameObject, "Standard");
 
         Mousemanager = FindObjectOfType<MouseManager>();
@@ -26,20 +28,21 @@ public class Building : MonoBehaviour
         //Gives certain instructions based on building type.
         switch (building.CurrentBuildingType)
         {
-            case (BuildingList.BuildingTypes.Mine):
+            case (BuildingList.Types.Mine):
                 mine = gameObject.AddComponent<Mine>();
                 mine.building = this;
+                mine.MiningTime = MiningTime;
                 break;
 
-            case (BuildingList.BuildingTypes.Conveyor):
+            case (BuildingList.Types.Conveyor):
                 break;
 
-            case (BuildingList.BuildingTypes.Splitter):
+            case (BuildingList.Types.Splitter):
                 splitter = gameObject.AddComponent<Splitter>();
                 splitter.building = this;
                 break;
 
-            case (BuildingList.BuildingTypes.Smelter):
+            case (BuildingList.Types.Smelter):
                 crafting = gameObject.AddComponent<Crafting>();
                 crafting.building = this;
                 break;
@@ -84,10 +87,8 @@ public class Building : MonoBehaviour
         //The position of the output (which is rounded to be the center of the block the output is placed on, aka in the building).
         int x = 0;
 
-
         if (outputs.Length > 1)
             x = Random.Range(0, OutputContainers.Length);
-
       
         Vector3 pos = outputs[x].transform.position;
         pos = new Vector3(Mathf.RoundToInt(pos.x), 0.666f , (Mathf.RoundToInt(pos.z)));
@@ -130,7 +131,7 @@ public class Building : MonoBehaviour
                 foreach (ItemContainer con in InputContainers)
                 {
 
-                    if (building.CurrentBuildingType == BuildingList.BuildingTypes.Splitter && con.amount < con.item.MaxStack)
+                    if (building.CurrentBuildingType == BuildingList.Types.Splitter && con.amount < con.item.MaxStack)
                     {
                         splitter.Split(rs, con);
                         break;
@@ -153,18 +154,11 @@ public class Building : MonoBehaviour
                         ItemContainer.UpdateValue(++con.amount, con);
                         break;
                     }
-
-
                 }
-
-
-
-
                 Destroy(hit[0].gameObject);
             }
         }
         yield return new WaitForFixedUpdate();
         StartCoroutine(CheckInputs());
     }
-
 }

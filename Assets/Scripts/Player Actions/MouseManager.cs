@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class MouseManager : MonoBehaviour {
 
+    [SerializeField]
     int rotation = 1;
     public GameObject SpotLight;
     public Text BuildingTypeText;
@@ -25,6 +26,7 @@ public class MouseManager : MonoBehaviour {
             if(TheBuilding != null)
             {
                 TheBuilding.transform.position = new Vector3(Mathf.RoundToInt(hit.point.x), 1, Mathf.RoundToInt(hit.point.z));
+
             }
 
             if (Input.GetMouseButtonDown(0))
@@ -45,10 +47,9 @@ public class MouseManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.R))
         {
             rotation++;
-            TheBuilding.transform.Rotate(new Vector3(0, 90, 0));
-
             if (rotation == 5)
                 rotation = 1;
+            TheBuilding.transform.Rotate(new Vector3(0, 90, 0));
         }
     }
 
@@ -77,16 +78,17 @@ public class MouseManager : MonoBehaviour {
             //Instantiates the building the player wants to construct where mouse was clicked
             switch (buildingtype.CurrentBuildingType)
             {
-                case (BuildingList.BuildingTypes.Mine):
+                //TO-DO: Use the dictionary with IDs instead to prevent too much expansion here and make it easier to add buildings
+                case (BuildingList.Types.Mine):
                     InstantiateBuilding(buildingtype, 1f);
                     break;
-                case (BuildingList.BuildingTypes.Conveyor):
+                case (BuildingList.Types.Conveyor):
                     InstantiateBuilding(buildingtype, 0.5f);
                     break;
-                case (BuildingList.BuildingTypes.Splitter):
+                case (BuildingList.Types.Splitter):
                     InstantiateBuilding(buildingtype, 0.8f);
                     break;
-                case (BuildingList.BuildingTypes.Smelter):
+                case (BuildingList.Types.Smelter):
                     InstantiateBuilding(buildingtype, 1f);
                     break;
                 default:
@@ -96,25 +98,32 @@ public class MouseManager : MonoBehaviour {
             SelectionMaterial.ChangeTransparency(TheBuilding, "Legacy Shaders/Transparent/Diffuse");
             TheBuilding.GetComponent<Collider>().enabled = enabled;
             TheBuilding.layer = 5;
+            TheBuilding.transform.Rotate(new Vector3(0, 90, 0));
         }
 
         destroy = false;
     }
 
-    bool isValidPlacementSpot()
+    bool IsValidPlacementSpot()
     {
         Ray ray;
-        ray = new Ray(transform.position, -transform.up);
+        ray = new Ray(TheBuilding.transform.position + transform.up* 0.7f, -transform.up);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, onlyGroundAndBuildings))
         {
             GameObject hot = hit.transform.gameObject;
-            switch (hot.GetComponent<Building>().building.CurrentBuildingType)
-            {
-                case (BuildingList.BuildingTypes.Mine):
 
-                    if (hot.GetComponent<Tile>().currentTileType == Tile.TileTypes.Iron)
+            if (hot.layer == 11)
+            {
+                return false;
+            }
+
+            switch (buildingtype.CurrentBuildingType)
+            {
+                case (BuildingList.Types.Mine):
+
+                    if (hot.GetComponent<Tile>().currentTileType == Tile.Types.Iron)
                     {
                         return true;
                     }
@@ -141,7 +150,7 @@ public class MouseManager : MonoBehaviour {
         //Do something to the tile you just clicked on.
         if (hasComponentTile != null)
         {
-            if (buildingtype != BuildingList.Nothing && buildingtype != null)
+            if (buildingtype != BuildingList.Nothing && buildingtype != null && IsValidPlacementSpot())
             {
                 //Instantiates the building the player wants to construct where mouse was clicked
                 TheBuilding.GetComponent<Building>().enabled = enabled;
@@ -149,6 +158,7 @@ public class MouseManager : MonoBehaviour {
                 TheBuilding.layer = 11;
 
                 //Determines the buildings rotation, which is mostly used by items that travel.
+                print(rotation);
                 switch (rotation)
                 {
                     case (1):
@@ -163,11 +173,14 @@ public class MouseManager : MonoBehaviour {
                     case (4):
                         buildingScript.direction = new Vector3(1, 0, 0);
                         break;
+                        
                 }                                               
             }
             else
             {
                 BuildingTypeText.text = selection.GetComponent<Tile>().currentTileType.ToString();
+                Destroy(TheBuilding);
+                Debug.LogWarning("Invalid Construction");
             }
         }
         //If you clicked a building
@@ -198,8 +211,8 @@ public class MouseManager : MonoBehaviour {
             hasComponentBuilding = null;
             hasComponentTile = null;
             destroy = false;
-            rotation = 1;
         }
+        rotation = 1;
     }
 
     //This function is called from line 79 and forward. 

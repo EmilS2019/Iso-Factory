@@ -32,11 +32,11 @@ public class World : MonoBehaviour {
                 if (ResourceType > 994)
                 {
                     //0.1% chance that a tile will be Iron
-                    tile.currentTileType = Tile.TileTypes.Iron;
+                    tile.currentTileType = Tile.Types.Iron;
                 }
                 else
                 {
-                    tile.currentTileType = Tile.TileTypes.Ground;
+                    tile.currentTileType = Tile.Types.Ground;
                 }
 
 

@@ -5,14 +5,14 @@ using UnityEngine;
 public class Tile : MonoBehaviour{
 
 
-    public enum TileTypes
+    public enum Types
     {
         Nothing,
         Ground,
         Iron
     }
 
-    public TileTypes currentTileType;
+    public Types currentTileType;
     public int x, z;
     public Material[] materials;
     MeshRenderer MRmaterials;
@@ -25,11 +25,11 @@ public class Tile : MonoBehaviour{
 
     public void ChangeTileType()
     {
-        if (currentTileType == TileTypes.Ground)
+        if (currentTileType == Types.Ground)
         {
             MRmaterials.material = materials[0];
         }
-        else if (currentTileType == TileTypes.Iron)
+        else if (currentTileType == Types.Iron)
         {
             MRmaterials.material = materials[1];
         }
