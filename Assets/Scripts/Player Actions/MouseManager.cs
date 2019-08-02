@@ -54,7 +54,21 @@ public class MouseManager : MonoBehaviour {
     public GameObject SelectedObject;
     Building buildingScript = null;
     GameObject TheBuilding;
-    
+
+    //This function is called by the building buttons. Changes what building is selected.
+    public void ChangeBuilding(int build)
+    {
+        foreach (BuildingList building in BuildingList.buildinglist)
+        {
+            if (building.ID == build)
+            {
+                buildingtype = building;
+            }
+        }
+
+        destroy = false;
+    }
+
     void GroundClicked ()
     {
 
@@ -208,20 +222,6 @@ public class MouseManager : MonoBehaviour {
             }
             building = null;
         }
-    }
-
-    //This function is called by the building buttons. 
-    public void ChangeBuilding(int build)
-    {
-        foreach (BuildingList building in BuildingList.buildinglist)
-        {
-            if (building.ID == build)
-            {
-                buildingtype = building;
-            }
-        }
-
-        destroy = false;
     }
 
     //This is called when the "destroy" button is pressed.

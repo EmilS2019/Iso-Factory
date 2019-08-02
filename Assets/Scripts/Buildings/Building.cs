@@ -17,6 +17,12 @@ public class Building : MonoBehaviour
     public void Start()
     {
         GetComponent<MeshRenderer>().material = SelectionMaterial.Selection(GetComponent<MeshRenderer>());
+        if (transform.childCount > 0)
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                if(transform.GetChild(i).GetComponent<MeshRenderer>() != null)
+                transform.GetChild(i).GetComponent<MeshRenderer>().material = SelectionMaterial.Selection(transform.GetChild(i).GetComponent<MeshRenderer>());
+            } 
 
         Mousemanager = FindObjectOfType<MouseManager>();
 
