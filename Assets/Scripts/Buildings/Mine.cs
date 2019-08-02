@@ -6,7 +6,7 @@ using UnityEngine;
 public class Mine : MonoBehaviour {
 
 
-    Building building;
+    public Building building;
     public ItemList resourceToMine;
 
     public LayerMask layermask;
@@ -16,7 +16,6 @@ public class Mine : MonoBehaviour {
     void Start()
     {
         mousemanager = GetComponent<Building>().Mousemanager;
-        building = GetComponent<Building>();
         ray = new Ray(transform.position, -transform.up);
         RaycastHit hit;
 
@@ -63,6 +62,3 @@ public class Mine : MonoBehaviour {
         StartCoroutine(Mining(resource));
     }
 }
-    
-
-

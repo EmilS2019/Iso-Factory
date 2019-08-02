@@ -3,13 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SelectionMaterial : MonoBehaviour {
-    
 
-    public static Material Selection(MeshRenderer rend)
+    static Material original;
+
+    public static Material Selection(MeshRenderer rend, string materialName)
     {
-        rend.material.shader = Shader.Find("Legacy Shaders/Transparent/Diffuse");
+        original = rend.material;
+        rend.material.shader = Shader.Find(materialName);
         rend.material.color += new Color(0,0,0,-0.5f);
 
         return rend.material;
     }
+    //Legacy Shaders/Transparent/Diffuse
+
+    public static void ChangeTransparency(GameObject gameobject, string materialName)
+    {
+        gameobject.GetComponent<MeshRenderer>().material = Selection(gameobject.GetComponent<MeshRenderer>(), materialName);
+
+        if (gameobject.transform.childCount > 0)
+            for (int i = 0; i < gameobject.transform.childCount; i++)
+            {
+                if (gameobject.transform.GetChild(i).GetComponent<MeshRenderer>() != null)
+                    gameobject.transform.GetChild(i).GetComponent<MeshRenderer>().material = Selection(gameobject.transform.GetChild(i).GetComponent<MeshRenderer>(), materialName);
+            }
+    }
+
 }

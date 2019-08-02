@@ -19,9 +19,14 @@ public class MouseManager : MonoBehaviour {
 
         Ray rayMousePosition = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(rayMousePosition, out hit, onlyGroundAndBuildings))
+        if (Physics.Raycast(rayMousePosition, out hit, Mathf.Infinity,onlyGroundAndBuildings))
         {
             SpotLight.transform.position = new Vector3(Mathf.RoundToInt(hit.point.x), 2, Mathf.RoundToInt(hit.point.z));
+            if(TheBuilding != null)
+            {
+                TheBuilding.transform.position = new Vector3(Mathf.RoundToInt(hit.point.x), 1, Mathf.RoundToInt(hit.point.z));
+            }
+
             if (Input.GetMouseButtonDown(0))
             {
                 GroundClicked();
@@ -40,6 +45,7 @@ public class MouseManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.R))
         {
             rotation++;
+            TheBuilding.transform.Rotate(new Vector3(0, 90, 0));
 
             if (rotation == 5)
                 rotation = 1;
@@ -66,7 +72,63 @@ public class MouseManager : MonoBehaviour {
             }
         }
 
+        if (buildingtype != BuildingList.Nothing && buildingtype != null)
+        {
+            //Instantiates the building the player wants to construct where mouse was clicked
+            switch (buildingtype.CurrentBuildingType)
+            {
+                case (BuildingList.BuildingTypes.Mine):
+                    InstantiateBuilding(buildingtype, 1f);
+                    break;
+                case (BuildingList.BuildingTypes.Conveyor):
+                    InstantiateBuilding(buildingtype, 0.5f);
+                    break;
+                case (BuildingList.BuildingTypes.Splitter):
+                    InstantiateBuilding(buildingtype, 0.8f);
+                    break;
+                case (BuildingList.BuildingTypes.Smelter):
+                    InstantiateBuilding(buildingtype, 1f);
+                    break;
+                default:
+                    break;
+            }
+
+            SelectionMaterial.ChangeTransparency(TheBuilding, "Legacy Shaders/Transparent/Diffuse");
+            TheBuilding.GetComponent<Collider>().enabled = enabled;
+            TheBuilding.layer = 5;
+        }
+
         destroy = false;
+    }
+
+    bool isValidPlacementSpot()
+    {
+        Ray ray;
+        ray = new Ray(transform.position, -transform.up);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            GameObject hot = hit.transform.gameObject;
+            switch (hot.GetComponent<Building>().building.CurrentBuildingType)
+            {
+                case (BuildingList.BuildingTypes.Mine):
+
+                    if (hot.GetComponent<Tile>().currentTileType == Tile.TileTypes.Iron)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                default:
+                    return true;
+            }
+        }
+        //else
+        return false;
     }
 
     void GroundClicked ()
@@ -79,28 +141,12 @@ public class MouseManager : MonoBehaviour {
         //Do something to the tile you just clicked on.
         if (hasComponentTile != null)
         {
-            TheBuilding = null;
-
             if (buildingtype != BuildingList.Nothing && buildingtype != null)
             {
                 //Instantiates the building the player wants to construct where mouse was clicked
-                switch (buildingtype.CurrentBuildingType)
-                {
-                    case (BuildingList.BuildingTypes.Mine):
-                        InstantiateBuilding(buildingtype, 1f);
-                        break;
-                    case (BuildingList.BuildingTypes.Conveyor):
-                        InstantiateBuilding(buildingtype, 0.5f);
-                        break;
-                    case (BuildingList.BuildingTypes.Splitter):
-                       InstantiateBuilding(buildingtype, 0.8f);
-                       break;
-                    case (BuildingList.BuildingTypes.Smelter):
-                       InstantiateBuilding(buildingtype, 1f);
-                       break;
-                    default:
-                        break;
-                }
+                TheBuilding.GetComponent<Building>().enabled = enabled;
+                TheBuilding.GetComponent<Collider>().enabled = enabled;
+                TheBuilding.layer = 11;
 
                 //Determines the buildings rotation, which is mostly used by items that travel.
                 switch (rotation)
@@ -124,11 +170,10 @@ public class MouseManager : MonoBehaviour {
                 BuildingTypeText.text = selection.GetComponent<Tile>().currentTileType.ToString();
             }
         }
-
         //If you clicked a building
         else if (hasComponentBuilding != null)
         {
-            TheBuilding = SelectedObject;
+            //TheBuilding = SelectedObject;
 
             if (destroy)
             {
@@ -149,6 +194,7 @@ public class MouseManager : MonoBehaviour {
         if (!Input.GetKey(KeyCode.LeftShift))
         {
             buildingtype = BuildingList.Nothing;
+            TheBuilding = null;
             hasComponentBuilding = null;
             hasComponentTile = null;
             destroy = false;
@@ -161,6 +207,7 @@ public class MouseManager : MonoBehaviour {
     //Times the button R has been pressed. After that it gives the building its proper building Type.
     private void InstantiateBuilding(BuildingList building, float height)
     {
+
         //Building Position
         Vector3 buildingPlacement = new Vector3(Mathf.RoundToInt(hit.point.x), height, Mathf.RoundToInt(hit.point.z));
         switch (building.Width)
@@ -186,11 +233,14 @@ public class MouseManager : MonoBehaviour {
 
         //Create building
         TheBuilding = Instantiate(building.BuildingObject, buildingPlacement, Quaternion.identity);
-        TheBuilding.transform.Rotate(new Vector3(0, rotation * 90, 0));
 
         //Assign building
         buildingScript = TheBuilding.GetComponent<Building>();
         buildingScript.building = buildingtype;
+        buildingScript.enabled = !enabled;
+        TheBuilding.GetComponent<Collider>().enabled = !enabled;
+        
+
     }
 
     //This function instructs what will happen when the player clicks on a part of the ground or a building.
@@ -206,7 +256,7 @@ public class MouseManager : MonoBehaviour {
             SelectedObject = SelectedBuilding;
             Building building = SelectedBuilding.GetComponent<Building>();
 
-            if (building != null)
+            if (building != null && building.isActiveAndEnabled)
             {
 
                 //Type

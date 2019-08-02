@@ -16,13 +16,8 @@ public class Building : MonoBehaviour
 
     public void Start()
     {
-        GetComponent<MeshRenderer>().material = SelectionMaterial.Selection(GetComponent<MeshRenderer>());
-        if (transform.childCount > 0)
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                if(transform.GetChild(i).GetComponent<MeshRenderer>() != null)
-                transform.GetChild(i).GetComponent<MeshRenderer>().material = SelectionMaterial.Selection(transform.GetChild(i).GetComponent<MeshRenderer>());
-            } 
+
+        SelectionMaterial.ChangeTransparency(gameObject, "Standard");
 
         Mousemanager = FindObjectOfType<MouseManager>();
 
@@ -32,7 +27,8 @@ public class Building : MonoBehaviour
         switch (building.CurrentBuildingType)
         {
             case (BuildingList.BuildingTypes.Mine):
-                mine = GetComponent<Mine>();
+                mine = gameObject.AddComponent<Mine>();
+                mine.building = this;
                 break;
 
             case (BuildingList.BuildingTypes.Conveyor):
@@ -104,10 +100,6 @@ public class Building : MonoBehaviour
             {
                 if (OutputContainers[i].item.CurrentResourceType != ItemList.ResourceType.Nothing && OutputContainers[i].amount > 0)
                 {
-                    print(OutputContainers[i]);
-                    print(OutputContainers[i].item);
-                    print(OutputContainers[i].item.ItemObject);
-
                     GameObject item = Instantiate(OutputContainers[i].item.ItemObject, pos, Quaternion.identity, HierarchyManager.IronOre);
                     item.GetComponent<ResourceScript>().Item = OutputContainers[i].item;
                     ItemContainer.UpdateValue(-1, OutputContainers[i]);
