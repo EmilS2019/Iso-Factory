@@ -232,8 +232,12 @@ public class MouseManager : MonoBehaviour {
             hasComponentBuilding = null;
             hasComponentTile = null;
             destroy = false;
+            rotation = 1;
         }
-        rotation = 1;
+        else
+        {
+            ChangeBuilding(buildingtype.ID);
+        }
     }
 
     //This function is called from line 79 and forward. 
