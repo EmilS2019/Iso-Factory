@@ -15,6 +15,7 @@ public class Building : MonoBehaviour
     public ItemContainer[] InputContainers;
 
     public float MiningTime;
+    public float height;
 
     public void Start()
     {

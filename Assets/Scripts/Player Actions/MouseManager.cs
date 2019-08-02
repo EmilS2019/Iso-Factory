@@ -13,7 +13,7 @@ public class MouseManager : MonoBehaviour {
     RaycastHit hit;
     BuildingList buildingtype;
     public LayerMask onlyGroundAndBuildings;
-    
+    Vector3 buildingPlacement;
 
     void Update()
     {
@@ -25,8 +25,29 @@ public class MouseManager : MonoBehaviour {
             SpotLight.transform.position = new Vector3(Mathf.RoundToInt(hit.point.x), 2, Mathf.RoundToInt(hit.point.z));
             if(TheBuilding != null)
             {
-                TheBuilding.transform.position = new Vector3(Mathf.RoundToInt(hit.point.x), 1, Mathf.RoundToInt(hit.point.z));
-
+                Building building = TheBuilding.GetComponent<Building>();
+                buildingPlacement = new Vector3(Mathf.RoundToInt(hit.point.x), building.height, Mathf.RoundToInt(hit.point.z));
+                switch (building.building.Width)
+                {
+                    case 2:
+                        switch (rotation)
+                        {
+                            case 1:
+                                buildingPlacement.x += 0.5f;
+                                break;
+                            case 2:
+                                buildingPlacement.z += 0.5f;
+                                break;
+                            case 3:
+                                buildingPlacement.x += 0.5f;
+                                break;
+                            case 4:
+                                buildingPlacement.z += 0.5f;
+                                break;
+                        }
+                        break;
+                }
+                TheBuilding.transform.position = buildingPlacement;
             }
 
             if (Input.GetMouseButtonDown(0))
@@ -83,7 +104,7 @@ public class MouseManager : MonoBehaviour {
                     InstantiateBuilding(buildingtype, 1f);
                     break;
                 case (BuildingList.Types.Conveyor):
-                    InstantiateBuilding(buildingtype, 0.5f);
+                    InstantiateBuilding(buildingtype, 0.666f);
                     break;
                 case (BuildingList.Types.Splitter):
                     InstantiateBuilding(buildingtype, 0.8f);
@@ -222,27 +243,27 @@ public class MouseManager : MonoBehaviour {
     {
 
         //Building Position
-        Vector3 buildingPlacement = new Vector3(Mathf.RoundToInt(hit.point.x), height, Mathf.RoundToInt(hit.point.z));
-        switch (building.Width)
-        {
-            case 2:
-                switch (rotation)
-                {
-                    case 1:
-                        buildingPlacement.x += 0.5f;
-                        break;
-                    case 2:
-                        buildingPlacement.z += 0.5f;
-                        break;
-                    case 3:
-                        buildingPlacement.x += 0.5f;
-                        break;
-                    case 4:
-                        buildingPlacement.z += 0.5f;
-                        break;
-                }
-                break;
-        }
+        //Vector3 buildingPlacement = new Vector3(Mathf.RoundToInt(hit.point.x), height, Mathf.RoundToInt(hit.point.z));
+        //switch (building.Width)
+        //{
+        //    case 2:
+        //        switch (rotation)
+        //        {
+        //            case 1:
+        //                buildingPlacement.x += 0.5f;
+        //                break;
+        //            case 2:
+        //                buildingPlacement.z += 0.5f;
+        //                break;
+        //            case 3:
+        //                buildingPlacement.x += 0.5f;
+        //                break;
+        //            case 4:
+        //                buildingPlacement.z += 0.5f;
+        //                break;
+        //        }
+        //        break;
+        //}
 
         //Create building
         TheBuilding = Instantiate(building.BuildingObject, buildingPlacement, Quaternion.identity);
