@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+
 public class MouseManager : MonoBehaviour {
 
     [SerializeField]
@@ -15,6 +17,8 @@ public class MouseManager : MonoBehaviour {
     public LayerMask onlyGroundAndBuildings;
     Vector3 buildingPlacement;
 
+
+    
     void Update()
     {
 

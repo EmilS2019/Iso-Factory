@@ -20,8 +20,7 @@ public class ResourceScript : MonoBehaviour {
     void Start()
     {
         direction = FindOutput();
-        Movement();
-        StartCoroutine(FindDirection());
+        StartCoroutine(Movement());
     }
 
     Vector3 FindOutput()
@@ -47,7 +46,7 @@ public class ResourceScript : MonoBehaviour {
     IEnumerator FindDirection()
     {
         //The item sends a raycast to the current building it's on and finds out the direction
-        ray = new Ray(transform.position + RaycastPlacement, -transform.up); //transform.up + direction / 4f
+        ray = new Ray(transform.position + RaycastPlacement, -transform.up);
         Debug.DrawRay(ray.origin, ray.direction);
 
         if (Physics.Raycast(ray, out hit, onlyBuildings))
@@ -63,20 +62,27 @@ public class ResourceScript : MonoBehaviour {
                 //If there is a direction and there's no item ahead, move in a linear fasion
                 if (!Physics.Raycast(ray, out hit, 0.2f, onlyItems))
                 {
-                    Movement();
+                    StartCoroutine(Movement());
+                }
+                else
+                {
+                    //Repeat the process until it goes into an input.
+                    yield return new WaitForSeconds(0.1f);
+                    yield return StartCoroutine(FindDirection());
                 }
             }
         }
 
-        //Repeat the process until it goes into an input.
-        yield return new WaitForSeconds(0.1f);
-        yield return StartCoroutine(FindDirection());
+
     }
 
     public IEnumerator Movement()
     {
         Vector3 startPos = transform.position;
         Vector3 goalPos = transform.position + direction;
+
+        print(direction);
+        print(goalPos);
 
         float timePercentage = 0f;
         while (timePercentage < 1)
@@ -89,6 +95,8 @@ public class ResourceScript : MonoBehaviour {
             }
             yield return null;
         }
+        yield return new WaitForSeconds(0.1f);
+        StartCoroutine(FindDirection());
     }
 }
 

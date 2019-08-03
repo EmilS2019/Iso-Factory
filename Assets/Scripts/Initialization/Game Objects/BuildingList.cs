@@ -9,6 +9,11 @@ public class BuildingList
     |This file is for storing the different kinds of Buildings that exist in this game|
     -----------------------------------------------------------------------------------
     */
+
+    //This script is divided into three parts: The data for each building, the second part contains all of
+    //the class constructors, and the last part is where I add all of the buildings and assign their data. 
+    
+    //1.
     public enum Types
     {
         Nothing,
@@ -31,6 +36,7 @@ public class BuildingList
 
     public int ID { get; protected set; }
 
+    //2.
 
     /// <summary>
     /// This is for instantiating a new building class so that it becomes easy to add new buildings.
@@ -112,8 +118,7 @@ public class BuildingList
         Outputs = _Ouputs;
     }
 
-
-
+    //3.
     //LIST OF BUILDINGS
     public static BuildingList Nothing = new BuildingList(0, Types.Nothing);
     public static BuildingList Mine = new BuildingList(1, Types.Mine, BuildingReferenceList.MineGO, 0, 2);
