@@ -19,13 +19,28 @@ public class ResourceScript : MonoBehaviour {
     //The item instantiates
     void Start()
     {
-        //direction = FindOutput();
+        direction = FindOutput();
+        Movement();
         StartCoroutine(FindDirection());
     }
 
     Vector3 FindOutput()
     {
 
+        Vector3[] dir = new Vector3[4] { Vector3.forward, -Vector3.forward, Vector3.right, Vector3.left };
+
+        foreach (Vector3 d in dir)
+        {
+            ray = new Ray(transform.position, d);
+            Debug.DrawRay(ray.origin, ray.direction, Color.white, 0.25f);
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity) && hit.collider.name == "Output")
+            {
+                return d;
+            }
+        }
+
+        Debug.LogWarning("No output found");
         return new Vector3(0,0,0);
     }
 
@@ -48,20 +63,7 @@ public class ResourceScript : MonoBehaviour {
                 //If there is a direction and there's no item ahead, move in a linear fasion
                 if (!Physics.Raycast(ray, out hit, 0.2f, onlyItems))
                 {
-                    Vector3 startPos = transform.position;
-                    Vector3 goalPos = transform.position + direction;
-
-                    float timePercentage = 0f;
-                    while (timePercentage < 1)
-                    {
-                        ray = new Ray(transform.position, direction);
-                        if (!Physics.Raycast(ray, out hit, 0.2f, onlyItems))
-                        {
-                            timePercentage += Time.deltaTime / speed;
-                            transform.position = Vector3.Lerp(startPos, goalPos, timePercentage);
-                        }
-                        yield return null;
-                    }
+                    Movement();
                 }
             }
         }
@@ -69,6 +71,24 @@ public class ResourceScript : MonoBehaviour {
         //Repeat the process until it goes into an input.
         yield return new WaitForSeconds(0.1f);
         yield return StartCoroutine(FindDirection());
+    }
+
+    public IEnumerator Movement()
+    {
+        Vector3 startPos = transform.position;
+        Vector3 goalPos = transform.position + direction;
+
+        float timePercentage = 0f;
+        while (timePercentage < 1)
+        {
+            ray = new Ray(transform.position, direction);
+            if (!Physics.Raycast(ray, out hit, 0.2f, onlyItems))
+            {
+                timePercentage += Time.deltaTime / speed;
+                transform.position = Vector3.Lerp(startPos, goalPos, timePercentage);
+            }
+            yield return null;
+        }
     }
 }
 
