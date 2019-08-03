@@ -108,11 +108,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 593151c570afadf41b270241849066ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0, z: 0}
   MiningTime: 0
   height: 0.55
   onlyItems:
     serializedVersion: 2
     m_Bits: 0
+  inOverlapSphereRadius: 0
+  outOverlapSphereRadius: 0
   inupts: []
   outputs: []
