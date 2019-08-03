@@ -9,22 +9,30 @@ public class ResourceScript : MonoBehaviour {
     public Vector3 direction;
     Ray ray;
     RaycastHit hit;
-    public LayerMask onlyItems;
+
+
+    [Header("Raycast Settings")]
+    public Vector3 RaycastPlacement;
     public LayerMask onlyBuildings;
-    //TO-DO: Add a hierarchy manager object
+    public LayerMask onlyItems;
 
     //The item instantiates
     void Start()
     {
+        //direction = FindOutput();
         StartCoroutine(FindDirection());
     }
 
+    Vector3 FindOutput()
+    {
 
+        return new Vector3(0,0,0);
+    }
 
     IEnumerator FindDirection()
     {
         //The item sends a raycast to the current building it's on and finds out the direction
-        ray = new Ray(transform.position + transform.up + direction/4f, -transform.up);
+        ray = new Ray(transform.position + RaycastPlacement, -transform.up); //transform.up + direction / 4f
         Debug.DrawRay(ray.origin, ray.direction);
 
         if (Physics.Raycast(ray, out hit, onlyBuildings))

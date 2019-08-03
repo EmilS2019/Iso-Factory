@@ -224,6 +224,14 @@ public class MouseManager : MonoBehaviour {
         }
 
         //Makes it so left shift keeps the building you last constructed
+        Reset(hasComponentBuilding, hasComponentTile);
+
+
+    }
+
+    public void Reset(Building hasComponentBuilding, Tile hasComponentTile)
+    {
+
         if (!Input.GetKey(KeyCode.LeftShift))
         {
             buildingtype = BuildingList.Nothing;
@@ -231,7 +239,6 @@ public class MouseManager : MonoBehaviour {
             hasComponentBuilding = null;
             hasComponentTile = null;
             destroy = false;
-            rotation = 1;
         }
         else
         {
@@ -269,7 +276,7 @@ public class MouseManager : MonoBehaviour {
         //}
 
         //Create building
-        TheBuilding = Instantiate(building.BuildingObject, buildingPlacement, Quaternion.identity);
+        TheBuilding = Instantiate(building.BuildingObject, buildingPlacement, Quaternion.Euler(0,rotation*90,0));
 
         //Assign building
         buildingScript = TheBuilding.GetComponent<Building>();
@@ -318,4 +325,6 @@ public class MouseManager : MonoBehaviour {
         destroy = true;
         buildingtype = BuildingList.Nothing;
     }
+
+
 }

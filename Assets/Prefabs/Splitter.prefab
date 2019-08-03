@@ -439,7 +439,7 @@ MonoBehaviour:
   onlyItems:
     serializedVersion: 2
     m_Bits: 512
-  inOverlapSphereRadius: 0.17
+  inOverlapSphereRadius: 0.15
   outOverlapSphereRadius: 0.2
   inupts:
   - {fileID: 1428097967748966}
