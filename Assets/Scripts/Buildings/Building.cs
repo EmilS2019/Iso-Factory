@@ -7,7 +7,7 @@ public class Building : MonoBehaviour
     Mine mine;
     Splitter splitter;
     Crafting crafting;
-    public Vector3 direction;
+    Conveyor conveyor;
     public BuildingList building;
     public MouseManager Mousemanager { get; protected set; }
 
@@ -35,6 +35,9 @@ public class Building : MonoBehaviour
                 break;
 
             case (BuildingList.Types.Conveyor):
+                conveyor = gameObject.AddComponent<Conveyor>();
+                conveyor.building = this;
+
                 break;
 
             case (BuildingList.Types.Splitter):
@@ -168,4 +171,9 @@ public class Building : MonoBehaviour
         yield return new WaitForFixedUpdate();
         StartCoroutine(CheckInputs());
     }
+}
+
+public interface IBuilding
+{
+    Building BuildingS();
 }

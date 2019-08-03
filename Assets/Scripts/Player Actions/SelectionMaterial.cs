@@ -10,7 +10,7 @@ public class SelectionMaterial : MonoBehaviour {
     {
         original = rend.material;
         rend.material.shader = Shader.Find(materialName);
-        rend.material.color += new Color(0,0,0,-0.5f);
+        rend.material.color -= new Color(0, 0, 0, 0.5f);
 
         return rend.material;
     }

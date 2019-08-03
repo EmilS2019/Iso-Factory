@@ -53,13 +53,12 @@ public class ResourceScript : MonoBehaviour {
         {
             if (hit.collider.GetComponent<Building>() != null)
             {
-                direction = hit.collider.GetComponent<Building>().direction;
 
                 //Then sends another raycast to see if there's an item ahead.
                 ray = new Ray(transform.position, direction);
                 Debug.DrawRay(ray.origin, ray.direction);
 
-                //If there is a direction and there's no item ahead, move in a linear fasion
+                //If there's no item ahead, move in a linear fasion
                 if (!Physics.Raycast(ray, out hit, 0.2f, onlyItems))
                 {
                     StartCoroutine(Movement());
@@ -68,21 +67,16 @@ public class ResourceScript : MonoBehaviour {
                 {
                     //Repeat the process until it goes into an input.
                     yield return new WaitForSeconds(0.1f);
-                    yield return StartCoroutine(FindDirection());
+                    StartCoroutine(FindDirection());
                 }
             }
         }
-
-
     }
 
     public IEnumerator Movement()
     {
         Vector3 startPos = transform.position;
         Vector3 goalPos = transform.position + direction;
-
-        print(direction);
-        print(goalPos);
 
         float timePercentage = 0f;
         while (timePercentage < 1)

@@ -183,7 +183,7 @@ public class MouseManager : MonoBehaviour {
                 TheBuilding.layer = 11;
 
                 //Determines the buildings rotation, which is mostly used by items that travel.
-                switch (rotation)
+                /*switch (rotation)
                 {
                     case (1):
                         buildingScript.direction = new Vector3(0, 0, -1);
@@ -198,12 +198,13 @@ public class MouseManager : MonoBehaviour {
                         buildingScript.direction = new Vector3(1, 0, 0);
                         break;
                         
-                }                                               
+                }  */                                             
             }
             else
             {
                 BuildingTypeText.text = selection.GetComponent<Tile>().currentTileType.ToString();
                 Destroy(TheBuilding);
+                if(!destroy && TheBuilding != null)
                 Debug.LogWarning("Invalid Construction");
             }
         }
