@@ -112,7 +112,7 @@ public class Building : MonoBehaviour
         yield return new WaitForFixedUpdate();
         StartCoroutine(CheckOuput());
 
-
+        
     }
 
     //TO-DO: In the prefab, add all inputs and put it under one empty object as their parent
@@ -121,6 +121,9 @@ public class Building : MonoBehaviour
 
     IEnumerator CheckInputs()
     {
+        LinkedList<int> test = new LinkedList<int>();
+        
+
         foreach (GameObject input in inupts)
         {
 
