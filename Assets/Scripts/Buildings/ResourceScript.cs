@@ -51,8 +51,9 @@ public class ResourceScript : MonoBehaviour {
 
         if (Physics.Raycast(ray, out hit, onlyBuildings))
         {
-            if (hit.collider.GetComponent<Building>() != null)
+            if (hit.collider.GetComponent<Building>() != null && hit.collider.GetComponent<Conveyor>() != null)
             {
+                direction = hit.collider.GetComponent<Conveyor>().direction;
 
                 //Then sends another raycast to see if there's an item ahead.
                 ray = new Ray(transform.position, direction);
@@ -66,7 +67,7 @@ public class ResourceScript : MonoBehaviour {
                 else
                 {
                     //Repeat the process until it goes into an input.
-                    yield return new WaitForSeconds(0.1f);
+                    yield return new WaitForSeconds(0.05f);
                     StartCoroutine(FindDirection());
                 }
             }

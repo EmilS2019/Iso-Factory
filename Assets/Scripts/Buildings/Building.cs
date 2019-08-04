@@ -25,7 +25,8 @@ public class Building : MonoBehaviour
 
         InstantiateItemContainers();
 
-        //Gives certain instructions based on building type.
+        //To make sure that each start function in the scripts happends in the right 
+        //order, they will be assigner here instead. 
         switch (building.CurrentBuildingType)
         {
             case (BuildingList.Types.Mine):
@@ -37,7 +38,6 @@ public class Building : MonoBehaviour
             case (BuildingList.Types.Conveyor):
                 conveyor = gameObject.AddComponent<Conveyor>();
                 conveyor.building = this;
-
                 break;
 
             case (BuildingList.Types.Splitter):
@@ -171,9 +171,4 @@ public class Building : MonoBehaviour
         yield return new WaitForFixedUpdate();
         StartCoroutine(CheckInputs());
     }
-}
-
-public interface IBuilding
-{
-    Building BuildingS();
 }

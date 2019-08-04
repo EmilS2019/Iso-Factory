@@ -16,9 +16,7 @@ public class MouseManager : MonoBehaviour {
     BuildingList buildingtype;
     public LayerMask onlyGroundAndBuildings;
     Vector3 buildingPlacement;
-
-
-    
+  
     void Update()
     {
 
@@ -180,25 +178,7 @@ public class MouseManager : MonoBehaviour {
                 //Instantiates the building the player wants to construct where mouse was clicked
                 TheBuilding.GetComponent<Building>().enabled = enabled;
                 TheBuilding.GetComponent<Collider>().enabled = enabled;
-                TheBuilding.layer = 11;
-
-                //Determines the buildings rotation, which is mostly used by items that travel.
-                /*switch (rotation)
-                {
-                    case (1):
-                        buildingScript.direction = new Vector3(0, 0, -1);
-                        break;
-                    case (2):
-                        buildingScript.direction = new Vector3(-1, 0, 0);
-                        break;
-                    case (3):
-                        buildingScript.direction = new Vector3(0, 0, 1);
-                        break;
-                    case (4):
-                        buildingScript.direction = new Vector3(1, 0, 0);
-                        break;
-                        
-                }  */                                             
+                TheBuilding.layer = 11;                                           
             }
             else
             {
