@@ -14,7 +14,12 @@ public class ItemContainer
     public enum ContainerType { Input, Output, Storage, Crafting }
     public ContainerType CurrentContainerType { get; protected set; }
 
-
+    /// <summary>
+    /// Creates a new container.
+    /// </summary>
+    /// <param name="_currentContainerType"></param>
+    /// <param name="_itemList"></param>
+    /// <param name="YOffset"></param>
     public ItemContainer(ContainerType _currentContainerType, ItemList _itemList, float YOffset)
     {
         //Sets up basic values 
@@ -45,7 +50,11 @@ public class ItemContainer
         text.text = amount.ToString();
     }
 
-    //Call this to update a value.
+    /// <summary>
+    /// Changes value of ItemContainers array
+    /// </summary>
+    /// <param name="_amount"></param>
+    /// <param name="c"></param>
     public static void UpdateValue(int _amount, ItemContainer[] containers)
     {
         foreach (ItemContainer container in containers)
@@ -56,18 +65,30 @@ public class ItemContainer
         }
     }
 
-    public static void UpdateValue(int _amount, ItemContainer container)
+    /// <summary>
+    /// Changes value of ItemContainer c
+    /// </summary>
+    /// <param name="_amount"></param>
+    /// <param name="c"></param>
+    public static void UpdateValue(int _amount, ItemContainer c)
     {
-        container.amount += _amount;
-        container.text.text = container.amount.ToString();        
+        c.amount += _amount;
+        c.text.text = c.amount.ToString();        
     }
 
-    //Toggle visibility of the Containers.
-    public static void ToggleVisibility(ItemContainer container, bool on)
+    /// <summary>
+    /// Toggles visibility on container. False = Invisible, True = Visible
+    /// </summary>
+    /// <param name="on"></param>
+    public static void ToggleVisibility(ItemContainer c, bool on)
     {        
-            container.textGO.SetActive(on);
+            c.textGO.SetActive(on);
     }
 
+    /// <summary>
+    /// Toggles visibility on container array. False = Invisible, True = Visible
+    /// </summary>
+    /// <param name="on"></param>
     public static void ToggleVisibility(ItemContainer[] containers, bool on)
     {
         foreach (ItemContainer container in containers)
@@ -77,6 +98,10 @@ public class ItemContainer
 
     }
 
+    /// <summary>
+    /// Toggles visibility on all containers. False = Invisible, True = Visible
+    /// </summary>
+    /// <param name="on"></param>
     public static void ToggleVisibilityAll(bool on)
     {
         for (int i = 1; i < HierarchyManager.ItemCanvas.childCount; i++)
@@ -85,6 +110,10 @@ public class ItemContainer
         }
     }
 
+    /// <summary>
+    /// Destroys container array containers
+    /// </summary>
+    /// <param name="containers"></param>
     public static void Destroy(ItemContainer[] containers)
     {
         foreach (ItemContainer c in containers)
@@ -94,6 +123,11 @@ public class ItemContainer
             c.amount = 0;
         }
     }
+
+    /// <summary>
+    /// Destroys container c
+    /// </summary>
+    /// <param name="c"></param>
     public static void Destroy(ItemContainer c)
     {
 
@@ -128,5 +162,5 @@ public class ItemContainer
         return null;
     }
 
-    public delegate Tresult Func<in T, out Tresult>(T arg) where T : class;
+    //public delegate Tresult Func<in T, out Tresult>(T arg) where T : class;
 }
