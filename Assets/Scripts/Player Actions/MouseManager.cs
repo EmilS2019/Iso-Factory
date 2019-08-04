@@ -229,7 +229,8 @@ public class MouseManager : MonoBehaviour {
         }
         else
         {
-            ChangeBuilding(buildingtype.ID);
+            if (!destroy)
+                ChangeBuilding(buildingtype.ID);
         }
     }
 
