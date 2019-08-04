@@ -18,21 +18,6 @@ public class Mine : MonoBehaviour {
         mousemanager = GetComponent<Building>().Mousemanager;
         resourceToMine = ItemList.IronOre;
         StartCoroutine(Mining(resourceToMine));
-        //ray = new Ray(transform.position, -transform.up);
-        //RaycastHit hit;
-
-        //if (Physics.Raycast(ray, out hit, layermask))
-        //{
-        //    if (hit.transform.gameObject.GetComponent<Tile>().currentTileType == Tile.Types.Iron)
-        //    {
-        //        resourceToMine = ItemList.IronOre;
-        //    }
-        //    else
-        //    {
-
-        //        Destroy(gameObject);
-        //    }
-        //}
     }
 
     public float MiningTime;

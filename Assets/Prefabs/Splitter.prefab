@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 23418115657789618}
   - component: {fileID: 136830777292375194}
   m_Layer: 0
-  m_Name: Input (1)
+  m_Name: Input
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 23717420495393158}
   - component: {fileID: 136073367510676280}
   m_Layer: 0
-  m_Name: Output (1)
+  m_Name: Output
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,7 +163,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1329514189143192}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.877341, y: -2.2224, z: 3.6431003}
+  m_LocalPosition: {x: 18.938164, y: -3.5280902, z: 12.26888}
   m_LocalScale: {x: 1, y: 0.6, z: 2}
   m_Children:
   - {fileID: 4676018525166306}
@@ -433,7 +433,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 593151c570afadf41b270241849066ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0, z: 0}
   MiningTime: 0
   height: 0.8
   onlyItems:
@@ -455,8 +454,8 @@ CapsuleCollider:
   m_GameObject: {fileID: 1838557401240646}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.5
+  m_Enabled: 1
+  m_Radius: 0.3
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -468,8 +467,8 @@ CapsuleCollider:
   m_GameObject: {fileID: 1428097967748966}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.3
+  m_Enabled: 1
+  m_Radius: 0.2
   m_Height: 3.17
   m_Direction: 1
   m_Center: {x: -0.24, y: -0.08, z: 0}
@@ -481,8 +480,8 @@ CapsuleCollider:
   m_GameObject: {fileID: 1796576195946470}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.5
+  m_Enabled: 1
+  m_Radius: 0.3
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -494,8 +493,8 @@ CapsuleCollider:
   m_GameObject: {fileID: 1768265348869430}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.3
+  m_Enabled: 1
+  m_Radius: 0.2
   m_Height: 3.17
   m_Direction: 1
   m_Center: {x: -0.24, y: -0.08, z: 0}

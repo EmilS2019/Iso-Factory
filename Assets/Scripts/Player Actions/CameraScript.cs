@@ -43,6 +43,7 @@ public class CameraScript : MonoBehaviour {
         float h = Input.GetAxisRaw("Horizontal");
         float w = Input.GetAxisRaw("Vertical");
 
+        //TO-DO: Optimize camera movement script.
         if (transform.eulerAngles.y < 45 && transform.eulerAngles.y > 44)
         {
             transform.position += new Vector3(h, 0, -h) * Time.deltaTime * CameraSpeed;

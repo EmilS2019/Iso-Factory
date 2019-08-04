@@ -804,12 +804,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f3a348102cbbb747844569d7db9cf32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotation: 1
   SpotLight: {fileID: 768434855}
   BuildingTypeText: {fileID: 2132694708}
   onlyGroundAndBuildings:
     serializedVersion: 2
     m_Bits: 3072
+  xOffset: 0.5
+  zOffset: 0.5
+  spotlightHeight: 2
   SelectedObject: {fileID: 0}
 --- !u!114 &353649106
 MonoBehaviour:

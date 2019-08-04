@@ -7,16 +7,21 @@ using UnityEngine.UI;
 
 public class MouseManager : MonoBehaviour {
 
-    [SerializeField]
+    RaycastHit hit;
     int rotation = 1;
+    Vector3 mousePosition;
+    Vector3 buildingPlacement;
+    BuildingList buildingtype;
+
     public GameObject SpotLight;
     public Text BuildingTypeText;
-    Vector3 mousePosition;
-    RaycastHit hit;
-    BuildingList buildingtype;
     public LayerMask onlyGroundAndBuildings;
-    Vector3 buildingPlacement;
-  
+
+    [Header("Placement offset")]
+    public float xOffset;
+    public float zOffset;
+    public float spotlightHeight;
+
     void Update()
     {
 
@@ -24,7 +29,7 @@ public class MouseManager : MonoBehaviour {
 
         if (Physics.Raycast(rayMousePosition, out hit, Mathf.Infinity,onlyGroundAndBuildings))
         {
-            SpotLight.transform.position = new Vector3(Mathf.RoundToInt(hit.point.x), 2, Mathf.RoundToInt(hit.point.z));
+            SpotLight.transform.position = new Vector3(Mathf.RoundToInt(hit.point.x), spotlightHeight, Mathf.RoundToInt(hit.point.z));
             if(TheBuilding != null)
             {
                 Building building = TheBuilding.GetComponent<Building>();
@@ -32,19 +37,16 @@ public class MouseManager : MonoBehaviour {
                 switch (building.building.Width)
                 {
                     case 2:
+                    case 4:
                         switch (rotation)
                         {
-                            case 1:
-                                buildingPlacement.x += 0.5f;
-                                break;
                             case 2:
-                                buildingPlacement.z += 0.5f;
-                                break;
-                            case 3:
-                                buildingPlacement.x += 0.5f;
-                                break;
                             case 4:
-                                buildingPlacement.z += 0.5f;
+                                buildingPlacement.x += xOffset;
+                                break;
+                            case 1:
+                            case 3:
+                                buildingPlacement.z += zOffset;
                                 break;
                         }
                         break;
