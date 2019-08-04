@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-
 public class MouseManager : MonoBehaviour {
 
     RaycastHit hit;
@@ -21,6 +19,8 @@ public class MouseManager : MonoBehaviour {
     public float xOffset;
     public float zOffset;
     public float spotlightHeight;
+
+    
 
     void Update()
     {
@@ -66,7 +66,7 @@ public class MouseManager : MonoBehaviour {
         //Cancel if right click.
         if (Input.GetMouseButtonDown(1))
         {
-            buildingtype = BuildingList.Nothing;
+            Reset();
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -120,6 +120,7 @@ public class MouseManager : MonoBehaviour {
                     break;
             }
 
+
             SelectionMaterial.ChangeShader(TheBuilding, "Legacy Shaders/Transparent/Diffuse");
             TheBuilding.GetComponent<Collider>().enabled = enabled;
             TheBuilding.layer = 5;
@@ -131,8 +132,10 @@ public class MouseManager : MonoBehaviour {
 
     bool IsValidPlacementSpot()
     {
-        Ray ray;
-        ray = new Ray(TheBuilding.transform.position + transform.up* 0.7f, -transform.up);
+
+        Ray ray = new Ray();
+        if (TheBuilding != null)
+            ray = new Ray(TheBuilding.transform.position + transform.up* 0.7f, -transform.up);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, onlyGroundAndBuildings))
@@ -156,7 +159,6 @@ public class MouseManager : MonoBehaviour {
                     {
                         return false;
                     }
-
                 default:
                     return true;
             }
@@ -165,16 +167,19 @@ public class MouseManager : MonoBehaviour {
         return false;
     }
 
+    Tile hasComponentTile;
+    Building hasComponentBuilding;
     void GroundClicked ()
     {
 
         Transform selection = hit.transform;
-        Tile hasComponentTile = selection.gameObject.GetComponent<Tile>();
-        Building hasComponentBuilding = selection.gameObject.GetComponent<Building>();
+        hasComponentTile = selection.gameObject.GetComponent<Tile>();
+        hasComponentBuilding = selection.gameObject.GetComponent<Building>();
         SelectedObject = selection.gameObject;
         //Do something to the tile you just clicked on.
         if (hasComponentTile != null)
         {
+            print(IsValidPlacementSpot());
             if (buildingtype != BuildingList.Nothing && buildingtype != null && IsValidPlacementSpot())
             {
                 //Instantiates the building the player wants to construct where mouse was clicked
@@ -184,16 +189,21 @@ public class MouseManager : MonoBehaviour {
             }
             else
             {
-                BuildingTypeText.text = selection.GetComponent<Tile>().currentTileType.ToString();
-                Destroy(TheBuilding);
+                //BuildingTypeText.text = selection.GetComponent<Tile>().currentTileType.ToString();
                 if(!destroy && TheBuilding != null)
+                {
+                Reset();
                 Debug.LogWarning("Invalid Construction");
+                }
+                else
+                {
+                    print("wtf");
+                }
             }
         }
         //If you clicked a building
-        else if (hasComponentBuilding != null)
+        else if (hasComponentBuilding != null && IsValidPlacementSpot())
         {
-            //TheBuilding = SelectedObject;
 
             if (destroy)
             {
@@ -211,21 +221,21 @@ public class MouseManager : MonoBehaviour {
         }
 
         //Makes it so left shift keeps the building you last constructed
-        Reset(hasComponentBuilding, hasComponentTile);
-
-
+        TheBuilding = null;
+        Reset();
     }
 
-    public void Reset(Building hasComponentBuilding, Tile hasComponentTile)
+    void Reset()
     {
 
         if (!Input.GetKey(KeyCode.LeftShift))
         {
             buildingtype = BuildingList.Nothing;
-            TheBuilding = null;
             hasComponentBuilding = null;
             hasComponentTile = null;
             destroy = false;
+            Destroy(TheBuilding);
+            buildingScript = null;
         }
         else
         {
@@ -237,7 +247,7 @@ public class MouseManager : MonoBehaviour {
     //This function is called from line 79 and forward. 
     //It begins by finding the position of the mouse, then it places the building there and rotates the building based on how many
     //Times the button R has been pressed. After that it gives the building its proper building Type.
-    private void InstantiateBuilding(BuildingList building, float height)
+    void InstantiateBuilding(BuildingList building, float height)
     {
         //Create building
         TheBuilding = Instantiate(building.BuildingObject, buildingPlacement, Quaternion.Euler(0,rotation*90,0));
