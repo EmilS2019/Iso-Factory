@@ -19,7 +19,7 @@ public class Building : MonoBehaviour
 
     public void Start()
     {
-        SelectionMaterial.ChangeTransparency(gameObject, "Standard");
+        SelectionMaterial.ChangeShader(gameObject, "Standard");
 
         Mousemanager = FindObjectOfType<MouseManager>();
 
@@ -124,9 +124,7 @@ public class Building : MonoBehaviour
 
     IEnumerator CheckInputs()
     {
-        LinkedList<int> test = new LinkedList<int>();
-        
-
+       
         foreach (GameObject input in inupts)
         {
 
@@ -140,28 +138,19 @@ public class Building : MonoBehaviour
                 //Foreach 
                 foreach (ItemContainer con in InputContainers)
                 {
-
-                    if (building.CurrentBuildingType == BuildingList.Types.Splitter && con.amount < con.item.MaxStack)
-                    {
-                        splitter.Split(rs, con);
-                        break;
-                    }
-                    else if (gameObject.GetComponent<Crafting>() && con.amount < con.item.MaxStack)
-                    {
-                        crafting.Craft();
-                    }
-
                     //If the item containers resource matches the one that's being fed in, increase the amount by one and destroy the game object.
                     if (con.item.CurrentResourceType == rs.Item.CurrentResourceType && con.amount < con.item.MaxStack)
                     {
                         ItemContainer.UpdateValue(1, con);
+                        SpecialCase(con,rs);
                         break;
                     }
                     //Otherwise use an empty one
-                    else if (con.item.CurrentResourceType == ItemList.ResourceType.Nothing)
+                    else if (con.item == ItemList.Nothing)
                     {
                         con.item = rs.Item;
-                        ItemContainer.UpdateValue(++con.amount, con);
+                        ItemContainer.UpdateValue(1, con);
+                        SpecialCase(con,rs);
                         break;
                     }
                 }
@@ -170,5 +159,18 @@ public class Building : MonoBehaviour
         }
         yield return new WaitForFixedUpdate();
         StartCoroutine(CheckInputs());
+    }
+
+    public void SpecialCase(ItemContainer con, ResourceScript rs)
+    {
+        //Special cases for certain buildings.
+        if (building == BuildingList.Splitter && con.amount < con.item.MaxStack)
+        {
+            splitter.Split(rs, con);
+        }
+        else if (gameObject.GetComponent<Crafting>() && con.amount < con.item.MaxStack)
+        {
+            crafting.Craft();
+        }
     }
 }

@@ -16,7 +16,7 @@ public class SelectionMaterial : MonoBehaviour {
     }
     //Legacy Shaders/Transparent/Diffuse
 
-    public static void ChangeTransparency(GameObject gameobject, string materialName)
+    public static void ChangeShader(GameObject gameobject, string materialName)
     {
         gameobject.GetComponent<MeshRenderer>().material = Selection(gameobject.GetComponent<MeshRenderer>(), materialName);
 

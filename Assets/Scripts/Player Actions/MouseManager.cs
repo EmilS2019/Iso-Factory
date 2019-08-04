@@ -120,7 +120,7 @@ public class MouseManager : MonoBehaviour {
                     break;
             }
 
-            SelectionMaterial.ChangeTransparency(TheBuilding, "Legacy Shaders/Transparent/Diffuse");
+            SelectionMaterial.ChangeShader(TheBuilding, "Legacy Shaders/Transparent/Diffuse");
             TheBuilding.GetComponent<Collider>().enabled = enabled;
             TheBuilding.layer = 5;
             TheBuilding.transform.Rotate(new Vector3(0, 90, 0));

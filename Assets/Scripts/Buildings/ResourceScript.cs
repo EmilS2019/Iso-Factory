@@ -43,11 +43,14 @@ public class ResourceScript : MonoBehaviour {
         return new Vector3(0,0,0);
     }
 
+    public float randomNum;
+
     IEnumerator FindDirection()
     {
         //The item sends a raycast to the current building it's on and finds out the direction
         bool reset = false;
-        ray = new Ray(transform.position + RaycastPlacement, -transform.up);
+        float Rand = Random.Range(-randomNum, randomNum);
+        ray = new Ray(transform.position + RaycastPlacement + new Vector3(Rand, 0, Rand), -transform.up);
         Debug.DrawRay(ray.origin, ray.direction);
 
         if (Physics.Raycast(ray, out hit, onlyBuildings))
@@ -109,10 +112,6 @@ public class ResourceScript : MonoBehaviour {
     {
         A entry = new A();
         var cols = entry.GetType().GetProperties();
-
-        
-
-
         return null;
     }
 }*/
