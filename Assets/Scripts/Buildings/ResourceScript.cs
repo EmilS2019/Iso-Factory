@@ -46,6 +46,7 @@ public class ResourceScript : MonoBehaviour {
     IEnumerator FindDirection()
     {
         //The item sends a raycast to the current building it's on and finds out the direction
+        bool reset = false;
         ray = new Ray(transform.position + RaycastPlacement, -transform.up);
         Debug.DrawRay(ray.origin, ray.direction);
 
@@ -65,25 +66,18 @@ public class ResourceScript : MonoBehaviour {
                     StartCoroutine(Movement());
                 }
                 else
-                {
-                    yield return new WaitForSeconds(0.3f);
-                    StartCoroutine(FindDirection());
-                }
+                    reset = true;             
             }
             else
-            {
-                //Repeat the process until it goes into an input.
-                yield return new WaitForSeconds(0.3f);
-                StartCoroutine(FindDirection());
-            }
+               reset = true;           
         }
         else
-        {
-            yield return new WaitForSeconds(0.3f);
+            reset = true;        
+
+        //Repeat the process until it goes into an input.
+        yield return new WaitForSeconds(0.3f);
+        if (reset)
             StartCoroutine(FindDirection());
-        }
-
-
     }
 
     public float distanceBetweenItems;
