@@ -18,7 +18,7 @@ public class Crafting : MonoBehaviour {
         foreach (ItemList item in currentRecipie.requiredItems)
         {
             a[i] = ItemContainer.FindItemContainer(building.InputContainers, item);
-            ItemContainer.UpdateValue(-2, a[i]);
+            ItemContainer.UpdateValue(-1, a[i]);
 
             b = ItemContainer.FindItemContainer(building.OutputContainers, ItemList.IronIngot);
         }

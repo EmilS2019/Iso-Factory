@@ -167,6 +167,7 @@ public class Building : MonoBehaviour
         if (building == BuildingList.Splitter && con.amount < con.item.MaxStack)
         {
             splitter.Split(rs, con);
+            ItemContainer.UpdateValue(-1, con);
         }
         else if (gameObject.GetComponent<Crafting>() && con.amount < con.item.MaxStack)
         {
