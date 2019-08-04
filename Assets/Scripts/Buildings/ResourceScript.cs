@@ -66,13 +66,27 @@ public class ResourceScript : MonoBehaviour {
                 }
                 else
                 {
-                    //Repeat the process until it goes into an input.
-                    yield return new WaitForSeconds(0.05f);
+                    yield return new WaitForSeconds(0.3f);
                     StartCoroutine(FindDirection());
                 }
             }
+            else
+            {
+                //Repeat the process until it goes into an input.
+                yield return new WaitForSeconds(0.3f);
+                StartCoroutine(FindDirection());
+            }
         }
+        else
+        {
+            yield return new WaitForSeconds(0.3f);
+            StartCoroutine(FindDirection());
+        }
+
+
     }
+
+    public float distanceBetweenItems;
 
     public IEnumerator Movement()
     {
@@ -83,7 +97,7 @@ public class ResourceScript : MonoBehaviour {
         while (timePercentage < 1)
         {
             ray = new Ray(transform.position, direction);
-            if (!Physics.Raycast(ray, out hit, 0.2f, onlyItems))
+            if (!Physics.Raycast(ray, out hit, distanceBetweenItems, onlyItems))
             {
                 timePercentage += Time.deltaTime / speed;
                 transform.position = Vector3.Lerp(startPos, goalPos, timePercentage);

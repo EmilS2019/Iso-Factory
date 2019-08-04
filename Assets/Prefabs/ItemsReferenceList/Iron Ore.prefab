@@ -409,3 +409,4 @@ MonoBehaviour:
   onlyItems:
     serializedVersion: 2
     m_Bits: 512
+  distanceBetweenItems: 0.4

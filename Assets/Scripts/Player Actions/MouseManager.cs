@@ -236,30 +236,6 @@ public class MouseManager : MonoBehaviour {
     //Times the button R has been pressed. After that it gives the building its proper building Type.
     private void InstantiateBuilding(BuildingList building, float height)
     {
-
-        //Building Position
-        //Vector3 buildingPlacement = new Vector3(Mathf.RoundToInt(hit.point.x), height, Mathf.RoundToInt(hit.point.z));
-        //switch (building.Width)
-        //{
-        //    case 2:
-        //        switch (rotation)
-        //        {
-        //            case 1:
-        //                buildingPlacement.x += 0.5f;
-        //                break;
-        //            case 2:
-        //                buildingPlacement.z += 0.5f;
-        //                break;
-        //            case 3:
-        //                buildingPlacement.x += 0.5f;
-        //                break;
-        //            case 4:
-        //                buildingPlacement.z += 0.5f;
-        //                break;
-        //        }
-        //        break;
-        //}
-
         //Create building
         TheBuilding = Instantiate(building.BuildingObject, buildingPlacement, Quaternion.Euler(0,rotation*90,0));
 
@@ -310,6 +286,4 @@ public class MouseManager : MonoBehaviour {
         destroy = true;
         buildingtype = BuildingList.Nothing;
     }
-
-
 }
