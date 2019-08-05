@@ -9,7 +9,8 @@ public class MouseManager : MonoBehaviour {
     int rotation = 1;
     Vector3 mousePosition;
     Vector3 buildingPlacement;
-    BuildingList buildingtype;
+
+    [SerializeField] BuildingList buildingtype;
 
     public GameObject SpotLight;
     public Text BuildingTypeText;
@@ -24,7 +25,6 @@ public class MouseManager : MonoBehaviour {
 
     void Update()
     {
-
         Ray rayMousePosition = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(rayMousePosition, out hit, Mathf.Infinity,onlyGroundAndBuildings))
@@ -144,7 +144,7 @@ public class MouseManager : MonoBehaviour {
 
             if (hot.layer == 11)
             {
-                return false;
+                goto invalid;
             }
 
             switch (buildingtype.CurrentBuildingType)
@@ -157,13 +157,15 @@ public class MouseManager : MonoBehaviour {
                     }
                     else
                     {
-                        return false;
+                        goto invalid;
                     }
                 default:
                     return true;
             }
         }
         //else
+        invalid:;
+        Debug.LogWarning("Invalid Construction");
         return false;
     }
 
@@ -185,20 +187,13 @@ public class MouseManager : MonoBehaviour {
                 //Instantiates the building the player wants to construct where mouse was clicked
                 TheBuilding.GetComponent<Building>().enabled = enabled;
                 TheBuilding.GetComponent<Collider>().enabled = enabled;
-                TheBuilding.layer = 11;                                           
+                TheBuilding.layer = 11;
+                TheBuilding = null;
+                Reset();
             }
             else
             {
-                //BuildingTypeText.text = selection.GetComponent<Tile>().currentTileType.ToString();
-                if(!destroy && TheBuilding != null)
-                {
                 Reset();
-                Debug.LogWarning("Invalid Construction");
-                }
-                else
-                {
-                    print("wtf");
-                }
             }
         }
         //If you clicked a building
@@ -213,19 +208,21 @@ public class MouseManager : MonoBehaviour {
             }
             else
             {
-                buildingScript = selection.GetComponent<Building>();
-
                 //UI elements
+                buildingScript = selection.GetComponent<Building>();
                 ShowSelectedObjectUI(SelectedObject);
+
+                Reset();
             }
         }
-
-        //Makes it so left shift keeps the building you last constructed
-        TheBuilding = null;
-        Reset();
+        else
+        {
+            //Makes it so left shift keeps the building you last constructed
+            Reset();
+        }
     }
 
-    void Reset()
+    void Reset()//TO-DO: Add an shift bool thing.
     {
 
         if (!Input.GetKey(KeyCode.LeftShift))
@@ -236,6 +233,7 @@ public class MouseManager : MonoBehaviour {
             destroy = false;
             Destroy(TheBuilding);
             buildingScript = null;
+            TheBuilding = null;
         }
         else
         {
