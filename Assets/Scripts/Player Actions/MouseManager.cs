@@ -181,7 +181,6 @@ public class MouseManager : MonoBehaviour {
         //Do something to the tile you just clicked on.
         if (hasComponentTile != null)
         {
-            print(IsValidPlacementSpot());
             if (buildingtype != BuildingList.Nothing && buildingtype != null && IsValidPlacementSpot())
             {
                 //Instantiates the building the player wants to construct where mouse was clicked
@@ -197,21 +196,20 @@ public class MouseManager : MonoBehaviour {
             }
         }
         //If you clicked a building
-        else if (hasComponentBuilding != null && IsValidPlacementSpot())
+        else if (hasComponentBuilding != null)
         {
-
             if (destroy)
             {
                 ItemContainer.Destroy(hasComponentBuilding.InputContainers);
                 ItemContainer.Destroy(hasComponentBuilding.OutputContainers);
                 Destroy(selection.gameObject);
+                Reset();
             }
             else
             {
                 //UI elements
                 buildingScript = selection.GetComponent<Building>();
                 ShowSelectedObjectUI(SelectedObject);
-
                 Reset();
             }
         }
