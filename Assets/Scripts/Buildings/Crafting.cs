@@ -11,19 +11,19 @@ public class Crafting : MonoBehaviour {
     public void Craft()
     {
 
-        ItemContainer[] a = new ItemContainer[currentRecipie.requiredItems.Length];
+        ItemContainer[] a = new ItemContainer[currentRecipie.RequiredItems.Length];
         ItemContainer b = null;
 
         int i = 0;
-        foreach (ItemList item in currentRecipie.requiredItems)
+        foreach (ItemList item in currentRecipie.RequiredItems)
         {
             a[i] = ItemContainer.FindItemContainer(building.InputContainers, item);
             ItemContainer.UpdateValue(-1, a[i]);
 
             b = ItemContainer.FindItemContainer(building.OutputContainers, ItemList.IronIngot);
         }
-        b.item = currentRecipie.finishedProduct;
-        ItemContainer.UpdateValue(currentRecipie.amountProduced, b);
+        b.item = currentRecipie.FinishedProduct;
+        ItemContainer.UpdateValue(currentRecipie.AmountProduced, b);
         i++;
     }
 }

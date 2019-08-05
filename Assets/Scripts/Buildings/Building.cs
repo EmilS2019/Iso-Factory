@@ -106,7 +106,7 @@ public class Building : MonoBehaviour
             {
                 if (OutputContainers[i].item.CurrentResourceType != ItemList.ResourceType.Nothing && OutputContainers[i].amount > 0)
                 {
-                    GameObject item = Instantiate(OutputContainers[i].item.ItemObject, pos, Quaternion.identity, HierarchyManager.IronOre);
+                    GameObject item = Instantiate(OutputContainers[i].item.ItemObject, pos, Quaternion.identity, OutputContainers[i].item.Hierarchy);
                     item.GetComponent<ResourceScript>().Item = OutputContainers[i].item;
                     ItemContainer.UpdateValue(-1, OutputContainers[i]);
                 }

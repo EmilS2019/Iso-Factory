@@ -172,7 +172,6 @@ public class MouseManager : MonoBehaviour {
     Transform selection;
     void GroundClicked ()
     {
-
         selection = hit.transform;
         hasComponentTile = selection.gameObject.GetComponent<Tile>();
         hasComponentBuilding = selection.gameObject.GetComponent<Building>();
@@ -188,12 +187,10 @@ public class MouseManager : MonoBehaviour {
                 TheBuilding.GetComponent<Collider>().enabled = enabled;
                 TheBuilding.layer = 11;
                 TheBuilding = null;
-                print("here");
                 Reset(false);
             }
             else //If it's not valid, reset
             {
-                print("here");
                 Reset(true);
             }
         }
@@ -205,7 +202,6 @@ public class MouseManager : MonoBehaviour {
                 ItemContainer.Destroy(hasComponentBuilding.InputContainers);
                 ItemContainer.Destroy(hasComponentBuilding.OutputContainers);
                 Destroy(selection.gameObject);
-                print("here");
                 Reset(false);
             }
             else if (TheBuilding == null)
@@ -218,21 +214,18 @@ public class MouseManager : MonoBehaviour {
             {
                 Destroy(TheBuilding);
                 TheBuilding = null;
-                print("here");
                 Reset(false);
             }
         }
         else
         {
             //Makes it so left shift keeps the building you last constructed
-            print("here");
             Reset(false);
         }
     }
 
     void Reset(bool forceFullReset)//TO-DO: Add an shift bool thing.
     {
-        print(forceFullReset);
         selection = null;
         hasComponentBuilding = null;
         hasComponentTile = null;

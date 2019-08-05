@@ -5,19 +5,28 @@ using UnityEngine;
 public class CraftingRecipie
 {
 
-    public ItemList[] requiredItems { get; protected set; }
-    public ItemList finishedProduct { get; protected set; }
-    public int amountProduced { get; protected set; }
+    public ItemList[] RequiredItems { get; protected set; }
+    public ItemList FinishedProduct { get; protected set; }
+    public int AmountProduced { get; protected set; }
 
-    private CraftingRecipie(ItemList required1, int AmountRequired1, ItemList finished)
+    private CraftingRecipie(ItemList required, int AmountRequired1, ItemList finished)
     {
-        requiredItems = new ItemList[1];
-        requiredItems[0] = required1;
-        finishedProduct = finished;
-        amountProduced = 1;
+        RequiredItems = new ItemList[1];
+        RequiredItems[0] = required;
+        FinishedProduct = finished;
+        AmountProduced = 1;
+    }
+
+    private CraftingRecipie(ItemList[] required, int AmountRequired1, ItemList finished)
+    {
+        RequiredItems = new ItemList[1];
+        RequiredItems[0] = required;
+        FinishedProduct = finished;
+        AmountProduced = 1;
     }
 
     public static CraftingRecipie ironIngot = new CraftingRecipie(ItemList.IronOre, 1, ItemList.IronIngot);
+    public static CraftingRecipie ironGear = new CraftingRecipie(ItemList.IronOre, 1, ItemList.IronIngot);
 
 }
 

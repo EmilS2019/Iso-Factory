@@ -37,6 +37,8 @@ public class BuildingList
 
     public int ID { get; protected set; }
 
+    public Transform HierarchyPlace { get; protected set; }
+
     //2.
 
     /// <summary>
