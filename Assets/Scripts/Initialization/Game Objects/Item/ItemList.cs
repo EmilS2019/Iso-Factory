@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public class ItemList
+[System.Serializable][CreateAssetMenu]
+public class ItemList : ScriptableObject
 {
     /*
      ----------------------------------------------------------------------------------------
@@ -18,11 +18,11 @@ public class ItemList
         Iron_Ingot,
         Iron_Gear
     }
-    public ResourceType CurrentResourceType { get; protected set; }
-    public GameObject ItemObject { get; protected set; }
-    public bool Stackable { get; protected set; }
-    public int MaxStack { get; protected set; }
-    public Transform Hierarchy { get; protected set; }
+    public ResourceType CurrentResourceType;
+    public GameObject ItemObject;
+    public bool Stackable;
+    public int MaxStack;
+    public GameObject Hierarchy;
 
 
     public ItemList(ResourceType _resourceType, GameObject _itemObject, int _MaxStack, Transform _Hierarchy)
@@ -30,7 +30,7 @@ public class ItemList
         CurrentResourceType = _resourceType;
         ItemObject = _itemObject;
         MaxStack = _MaxStack;
-        Hierarchy = _Hierarchy;
+
     }
 
     public ItemList(ResourceType _resourceType)
