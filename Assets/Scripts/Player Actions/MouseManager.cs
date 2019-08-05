@@ -21,8 +21,6 @@ public class MouseManager : MonoBehaviour {
     public float zOffset;
     public float spotlightHeight;
 
-    
-
     void Update()
     {
         Ray rayMousePosition = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -57,6 +55,7 @@ public class MouseManager : MonoBehaviour {
             if (Input.GetMouseButtonDown(0))
             {
                 GroundClicked();
+
                 //UI elements  
                 ShowSelectedObjectUI(SelectedObject);
 
@@ -66,7 +65,7 @@ public class MouseManager : MonoBehaviour {
         //Cancel if right click.
         if (Input.GetMouseButtonDown(1))
         {
-            Reset();
+            Reset(true);
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -120,7 +119,6 @@ public class MouseManager : MonoBehaviour {
                     break;
             }
 
-
             SelectionMaterial.ChangeShader(TheBuilding, "Legacy Shaders/Transparent/Diffuse");
             TheBuilding.GetComponent<Collider>().enabled = enabled;
             TheBuilding.layer = 5;
@@ -135,7 +133,7 @@ public class MouseManager : MonoBehaviour {
 
         Ray ray = new Ray();
         if (TheBuilding != null)
-            ray = new Ray(TheBuilding.transform.position + transform.up* 0.7f, -transform.up);
+            ray = new Ray(TheBuilding.transform.position + transform.up * 0.7f, -transform.up);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, onlyGroundAndBuildings))
@@ -171,28 +169,32 @@ public class MouseManager : MonoBehaviour {
 
     Tile hasComponentTile;
     Building hasComponentBuilding;
+    Transform selection;
     void GroundClicked ()
     {
 
-        Transform selection = hit.transform;
+        selection = hit.transform;
         hasComponentTile = selection.gameObject.GetComponent<Tile>();
         hasComponentBuilding = selection.gameObject.GetComponent<Building>();
         SelectedObject = selection.gameObject;
         //Do something to the tile you just clicked on.
         if (hasComponentTile != null)
         {
+
+            //Instantiates the building the player wants to construct where mouse was clicked
             if (buildingtype != BuildingList.Nothing && buildingtype != null && IsValidPlacementSpot())
             {
-                //Instantiates the building the player wants to construct where mouse was clicked
                 TheBuilding.GetComponent<Building>().enabled = enabled;
                 TheBuilding.GetComponent<Collider>().enabled = enabled;
                 TheBuilding.layer = 11;
                 TheBuilding = null;
-                Reset();
+                print("here");
+                Reset(false);
             }
-            else
+            else //If it's not valid, reset
             {
-                Reset();
+                print("here");
+                Reset(true);
             }
         }
         //If you clicked a building
@@ -203,34 +205,44 @@ public class MouseManager : MonoBehaviour {
                 ItemContainer.Destroy(hasComponentBuilding.InputContainers);
                 ItemContainer.Destroy(hasComponentBuilding.OutputContainers);
                 Destroy(selection.gameObject);
-                Reset();
+                print("here");
+                Reset(false);
             }
-            else
+            else if (TheBuilding == null)
             {
                 //UI elements
                 buildingScript = selection.GetComponent<Building>();
                 ShowSelectedObjectUI(SelectedObject);
-                Reset();
+            }
+            else
+            {
+                Destroy(TheBuilding);
+                TheBuilding = null;
+                print("here");
+                Reset(false);
             }
         }
         else
         {
             //Makes it so left shift keeps the building you last constructed
-            Reset();
+            print("here");
+            Reset(false);
         }
     }
 
-    void Reset()//TO-DO: Add an shift bool thing.
+    void Reset(bool forceFullReset)//TO-DO: Add an shift bool thing.
     {
+        print(forceFullReset);
+        selection = null;
+        hasComponentBuilding = null;
+        hasComponentTile = null;
+        buildingScript = null;
 
-        if (!Input.GetKey(KeyCode.LeftShift))
+        if (!Input.GetKey(KeyCode.LeftShift) || forceFullReset)
         {
             buildingtype = BuildingList.Nothing;
-            hasComponentBuilding = null;
-            hasComponentTile = null;
             destroy = false;
             Destroy(TheBuilding);
-            buildingScript = null;
             TheBuilding = null;
         }
         else
