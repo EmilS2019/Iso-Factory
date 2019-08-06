@@ -756,6 +756,7 @@ GameObject:
   - component: {fileID: 353649103}
   - component: {fileID: 353649104}
   - component: {fileID: 353649107}
+  - component: {fileID: 353649108}
   - component: {fileID: 353649106}
   - component: {fileID: 353649105}
   - component: {fileID: 353649109}
@@ -843,6 +844,20 @@ MonoBehaviour:
   _SplitterGO: {fileID: 1329514189143192, guid: 1cfb3e89669550a479ea0eec39fa5418,
     type: 2}
   _SmelterGO: {fileID: 1098757457369666, guid: 1db08f46804b4ea46b55c685599d856d, type: 2}
+--- !u!114 &353649108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 353649102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a566ab839d9880a4c936c82cb2fc91b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IronIngot: {fileID: 11400000, guid: 973795445210cf44dab6ac584587599a, type: 2}
+  IronOre: {fileID: 11400000, guid: 66c6f21fb37755f4f9d357d48f5030e0, type: 2}
+  Nothing: {fileID: 11400000, guid: 08a41657c610be046802aca6b3e840f3, type: 2}
 --- !u!114 &353649109
 MonoBehaviour:
   m_ObjectHideFlags: 0

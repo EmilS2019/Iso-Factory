@@ -7,6 +7,8 @@ public class Crafting : MonoBehaviour {
 
     public Building building;
     public CraftingRecipie currentRecipie= CraftingRecipie.ironIngot;
+    [SerializeField]
+    public ItemList IronIngot;
 
     public void Craft()
     {
@@ -20,7 +22,7 @@ public class Crafting : MonoBehaviour {
             a[i] = ItemContainer.FindItemContainer(building.InputContainers, item);
             ItemContainer.UpdateValue(-1, a[i]);
 
-            b = ItemContainer.FindItemContainer(building.OutputContainers, ItemList.IronIngot);
+            b = ItemContainer.FindItemContainer(building.OutputContainers, IronIngot);
         }
         b.item = currentRecipie.FinishedProduct;
         ItemContainer.UpdateValue(currentRecipie.AmountProduced, b);

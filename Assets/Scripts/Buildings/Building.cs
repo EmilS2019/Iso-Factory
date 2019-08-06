@@ -73,11 +73,11 @@ public class Building : MonoBehaviour
 
         for (int i = 0; i < OutputContainers.Length; i++)
         {
-            OutputContainers[i] = new ItemContainer(ItemContainer.ContainerType.Output, ItemList.Nothing, i * 110);
+            OutputContainers[i] = new ItemContainer(ItemContainer.ContainerType.Output, NewItemList.Nothing, i * 110);
         }
         for (int i = 0; i < InputContainers.Length; i++)
         {
-            InputContainers[i] = new ItemContainer(ItemContainer.ContainerType.Input, ItemList.Nothing, i * 110);
+            InputContainers[i] = new ItemContainer(ItemContainer.ContainerType.Input, NewItemList.Nothing, i * 110);
         }
     }
 
@@ -146,7 +146,7 @@ public class Building : MonoBehaviour
                         break;
                     }
                     //Otherwise use an empty one
-                    else if (con.item == ItemList.Nothing)
+                    else if (con.item == NewItemList.Nothing)
                     {
                         con.item = rs.Item;
                         ItemContainer.UpdateValue(1, con);

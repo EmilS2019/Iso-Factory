@@ -44,7 +44,6 @@ public class Mine : MonoBehaviour {
                 }
             }
         }
-
         StartCoroutine(Mining(resource));
     }
 }

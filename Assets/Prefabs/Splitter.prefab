@@ -433,6 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 593151c570afadf41b270241849066ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nothing: {fileID: 11400000, guid: 08a41657c610be046802aca6b3e840f3, type: 2}
   MiningTime: 0
   height: 0.8
   onlyItems:

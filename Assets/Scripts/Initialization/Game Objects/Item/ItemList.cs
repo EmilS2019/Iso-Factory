@@ -24,6 +24,13 @@ public class ItemList : ScriptableObject
     public int MaxStack;
     public GameObject Hierarchy;
 
+    [SerializeField]
+    public static ItemList _Nothing;
+    [SerializeField]
+    public static ItemList _IronOre;
+    [SerializeField]
+    public static ItemList _IronIngot;
+
 
     public ItemList(ResourceType _resourceType, GameObject _itemObject, int _MaxStack, Transform _Hierarchy)
     {
