@@ -29,5 +29,12 @@ public class HierarchyManager : MonoBehaviour
         IronIngot = _IronIngot;
         Buildings = _Buildings;
         Conveyor = _Conveyor;
+
+        
     }
+}
+
+public interface ITest
+{
+    int a { get; set; }
 }
