@@ -27,6 +27,7 @@ public class CraftingRecipie
 public struct ItemAmount
 {
     public ItemList Item;
+    [Range(1,100)]
     public int Amount;
 }
 
@@ -35,7 +36,4 @@ public class CraftingRecipiee : ScriptableObject
 {
     public List<ItemAmount> Materials;
     public List<ItemAmount> Results;
-
-
 }
-

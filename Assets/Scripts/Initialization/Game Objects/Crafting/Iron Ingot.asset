@@ -9,11 +9,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 0}
-  m_Name: IronPlates
+  m_Name: New Crafting Recipiee
   m_EditorClassIdentifier: Assembly-CSharp::CraftingRecipiee
   Materials:
-  - Item: {fileID: 0}
-    Amount: 2
-  - Item: {fileID: 0}
-    Amount: 2
-  Results: []
+  - Item: {fileID: 11400000, guid: 66c6f21fb37755f4f9d357d48f5030e0, type: 2}
+    Amount: 1
+  Results:
+  - Item: {fileID: 11400000, guid: 973795445210cf44dab6ac584587599a, type: 2}
+    Amount: 1

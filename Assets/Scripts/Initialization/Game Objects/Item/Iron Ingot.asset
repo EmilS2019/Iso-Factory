@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93eac4dcad3314c4a80fb603291b4350, type: 3}
+  m_Name: Iron Ingot
+  m_EditorClassIdentifier: 
+  CurrentResourceType: 2
+  ItemObject: {fileID: 1400863731785178, guid: 66b914a8822f04e4caf3fd3d0bc38929, type: 2}
+  Stackable: 1
+  MaxStack: 100
+  Hierarchy: {fileID: 1163121969067900, guid: 11e89a428317f0745afe06dd441bd8c0, type: 2}
